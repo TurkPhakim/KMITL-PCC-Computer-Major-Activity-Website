@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/T34Dr1nK/KMITL-PCC-Computer-Major-Activity-Website/issues"
   },
-  "homepage": "https://github.com/T34Dr1nK/KMITL-PCC-Computer-Major-Activity-Website#readme"
+  "homepage": "https://github.com/T34Dr1nK/KMITL-PCC-Computer-Major-Activity-Website#readme",
+  "dependencies": {
+    "dotenv": "^16.4.7"
+  }
 }
