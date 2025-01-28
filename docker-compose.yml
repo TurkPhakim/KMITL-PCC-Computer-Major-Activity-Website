@@ -1,15 +1,22 @@
 version: '3.8'
 services:
-
+  # รอเขียน service ของ frontend
+  frontend:
+    build:
+      context: ./WebClient
+      dockerfile: DOCKERFILE
+    container_name: frontend-app
+    ports:
+      - "4200:4200"
   backend:
     build:
       context: ./WebService # ชี้ไปยังโฟลเดอร์ที่มี Dockerfile ของ backend
       dockerfile: DOCKERFILE
     container_name: backend-app
     ports:
-      - "3000:3000" # พอร์ตสำหรับ backend
+      - "3000:3000"
     environment:
-      DB_HOST: mysql # ชื่อ service ของ MySQL
+      DB_HOST: mysql
       DB_USER: root
       DB_PASSWORD: password
       DB_NAME: my_database
@@ -17,10 +24,10 @@ services:
       - mysql
 
   mysql:
-    image: mysql:latest
+    image: mysql:8.0 # จะใช้ version อะไร
     container_name: mysql-db
     ports:
-      - "3306:3306" # พอร์ต MySQL
+      - "3306:3306"
     environment:
       MYSQL_ROOT_PASSWORD: password
       MYSQL_DATABASE: my_database
@@ -30,15 +37,16 @@ services:
       - mysql-data:/var/lib/mysql
 
   phpmyadmin:
+    # อาจจะใช้ prisma
     image: phpmyadmin:latest
     container_name: phpmyadmin
     depends_on:
-      - mysql # รอให้ MySQL ทำงานก่อน
+      - mysql
     environment:
-      PMA_HOST: mysql # ชื่อ service ของ MySQL
+      PMA_HOST: mysql
       PMA_PORT: 3306
     ports:
-      - "8080:80" # เปิด phpMyAdmin บนพอร์ต 8080
+      - "8080:80"
 
 volumes:
   mysql-data:
