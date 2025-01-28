@@ -1,9 +1,10 @@
 version: '3.8'
 services:
-  
+
   backend:
     build:
       context: ./WebService # ชี้ไปยังโฟลเดอร์ที่มี Dockerfile ของ backend
+      dockerfile: DOCKERFILE
     container_name: backend-app
     ports:
       - "3000:3000" # พอร์ตสำหรับ backend
