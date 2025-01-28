@@ -1,0 +1,43 @@
+version: '3.8'
+services:
+  
+  backend:
+    build:
+      context: ./WebService # ชี้ไปยังโฟลเดอร์ที่มี Dockerfile ของ backend
+    container_name: backend-app
+    ports:
+      - "3000:3000" # พอร์ตสำหรับ backend
+    environment:
+      DB_HOST: mysql # ชื่อ service ของ MySQL
+      DB_USER: root
+      DB_PASSWORD: password
+      DB_NAME: my_database
+    depends_on:
+      - mysql
+
+  mysql:
+    image: mysql:latest
+    container_name: mysql-db
+    ports:
+      - "3306:3306" # พอร์ต MySQL
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: my_database
+      MYSQL_USER: Test
+      MYSQL_PASSWORD: Password
+    volumes:
+      - mysql-data:/var/lib/mysql
+
+  phpmyadmin:
+    image: phpmyadmin:latest
+    container_name: phpmyadmin
+    depends_on:
+      - mysql # รอให้ MySQL ทำงานก่อน
+    environment:
+      PMA_HOST: mysql # ชื่อ service ของ MySQL
+      PMA_PORT: 3306
+    ports:
+      - "8080:80" # เปิด phpMyAdmin บนพอร์ต 8080
+
+volumes:
+  mysql-data:
