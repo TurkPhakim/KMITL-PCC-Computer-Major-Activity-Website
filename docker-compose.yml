@@ -1,14 +1,20 @@
 version: '3.8'
 services:
   # รอเขียน service ของ frontend
+  frontend:
+    build:
+      context: ./WebClient
+    container_name: frontend-app
+    ports:
+      - "4200:4200"
   backend:
     build:
-      context: ./WebService 
+      context: ./WebService
     container_name: backend-app
     ports:
-      - "3000:3000" 
+      - "3000:3000"
     environment:
-      DB_HOST: mysql 
+      DB_HOST: mysql
       DB_USER: root
       DB_PASSWORD: password
       DB_NAME: my_database
@@ -16,7 +22,7 @@ services:
       - mysql
 
   mysql:
-    image: mysql:latest # จะใช้ version อะไร
+    image: mysql:8.0 # จะใช้ version อะไร
     container_name: mysql-db
     ports:
       - "3306:3306"
@@ -28,13 +34,14 @@ services:
     volumes:
       - mysql-data:/var/lib/mysql
 
-  phpmyadmin: # อาจจะใช้ prisma
+  phpmyadmin:
+    # อาจจะใช้ prisma
     image: phpmyadmin:latest
     container_name: phpmyadmin
     depends_on:
-      - mysql 
+      - mysql
     environment:
-      PMA_HOST: mysql 
+      PMA_HOST: mysql
       PMA_PORT: 3306
     ports:
       - "8080:80"
