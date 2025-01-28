@@ -21,7 +21,11 @@ services:
       DB_NAME: my_database
     depends_on:
       - mysql
-    command: npm run dev
+    command: ["npm", "run", "dev"]
+    volumes:
+      - ./WebService:/usr/src/app/Webservice/
+
+
 
   mysql:
     image: mysql:8.0 # จะใช้ version อะไร
