@@ -2,10 +2,11 @@
   "name": "g6teamprojectbackend",
   "version": "1.0.0",
   "description": "BackEnd For G6 teamProject Backend",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js"
+    "start": "node ./server.js",
+    "dev": "nodemon ./server.js"
   },
   "repository": {
     "type": "git",
@@ -19,6 +20,7 @@
   "homepage": "https://github.com/T34Dr1nK/KMITL-PCC-Computer-Major-Activity-Website#readme",
   "dependencies": {
     "dotenv": "^16.4.7",
-    "express": "^4.21.2"
+    "express": "^4.21.2",
+    "nodemon": "^3.1.9"
   }
 }
