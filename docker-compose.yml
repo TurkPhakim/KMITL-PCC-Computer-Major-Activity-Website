@@ -1,5 +1,4 @@
 services:
-  # รอเขียน service ของ frontend
   frontend:
     build:
       context: ./WebClient
@@ -7,6 +6,9 @@ services:
     container_name: frontend-app
     ports:
       - "4200:4200"
+    volumes:
+      - ./WebClient:/usr/src/app/WebClient/
+
   backend:
     build:
       context: ./WebService # ชี้ไปยังโฟลเดอร์ที่มี Dockerfile ของ backend
@@ -24,8 +26,6 @@ services:
     command: ["npm", "run", "dev"]
     volumes:
       - ./WebService:/usr/src/app/Webservice/
-
-
 
   mysql:
     image: mysql:8.0 # จะใช้ version อะไร

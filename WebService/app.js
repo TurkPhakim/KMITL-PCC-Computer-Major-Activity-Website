@@ -11,11 +11,11 @@ app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-// const connection = require("./service/dbconn.js");
-// connection.connect(function(err) {
-//     if (err) throw err;
-//     console.log(`Connected as ID ${connection.threadId}`);
-// })
+const connection = require("./services/dbconn.js");
+connection.connect(function(err) {
+    if (err) throw err;
+    console.log(`Connected as ID ${connection.threadId}`);
+})
 
 const testroutes = require("./router/test.route.js");
 
