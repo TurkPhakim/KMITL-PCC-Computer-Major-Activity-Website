@@ -19,9 +19,10 @@ connection.connect(function (err) {
 
 const testroutes = require("./router/test.route.js");
 const activitiesroutes = require("./router/activities.route.js");
-
+const authroutes = require("./router/auth.route.js");
 app.use("/", testroutes);
 app.use("/activities", activitiesroutes);
+app.use("/auth", authroutes);
 
 app.use(function (req, res) {
   res.status(404).json({ message: "No such route exists" });
