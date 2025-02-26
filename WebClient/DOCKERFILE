@@ -12,11 +12,11 @@ RUN npm install --frozen-lockfile
 
 # คัดลอกโค้ดทั้งหมดในโปรเจกต์
 COPY . .
-RUN npm i
 
 # เปิดพอร์ตสำหรับ Angular
 EXPOSE 4200
 
+RUN npm i
 # Start Angular in development mode
 CMD ["npm", "start", "--", "--host", "0.0.0.0"]
  
