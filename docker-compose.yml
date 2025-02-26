@@ -6,8 +6,10 @@ services:
     container_name: frontend-app
     ports:
       - "4200:4200"
+    depends_on:
+      - backend
     volumes:
-      - ./WebClient:/usr/src/app/WebClient/
+      - ./WebClient:/usr/src/app/WebClient
 
   backend:
     build:
@@ -26,6 +28,7 @@ services:
     command: ["npm", "run", "dev"]
     volumes:
       - ./WebService:/usr/src/app/Webservice/
+      - ./WebClient:/usr/src/app/WebClient
 
   mysql:
     image: mysql:8.0 # จะใช้ version อะไร

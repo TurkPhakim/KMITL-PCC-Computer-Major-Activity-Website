@@ -1,5 +1,5 @@
 # ใช้ Node.js base image แบบ alpine
-FROM node:alpine
+FROM node:18-bullseye
 
 # ตั้งค่า working directory
 RUN mkdir -p /usr/src/app/WebClient
@@ -8,16 +8,15 @@ WORKDIR /usr/src/app/WebClient
 
 # คัดลอก package.json และ package-lock.json
 COPY package*.json ./
-
-# ติดตั้ง Angular CLI และ dependencies
-RUN npm install -g @angular/cli && npm install
+RUN npm install --frozen-lockfile
 
 # คัดลอกโค้ดทั้งหมดในโปรเจกต์
 COPY . .
+RUN npm i
 
 # เปิดพอร์ตสำหรับ Angular
 EXPOSE 4200
 
-# รันคำสั่ง Angular serve
-CMD ["ng", "serve", "--host", "0.0.0.0"]
+# Start Angular in development mode
+CMD ["npm", "start", "--", "--host", "0.0.0.0"]
  
