@@ -2,32 +2,30 @@ const connection = require("./dbconn");
 
 const FetchService = {
   getAllData: async (tableName1, tableName2) => {
-    return new Promise((resolve, reject) => {
+    try {
       const sql = `
-                SELECT 
-                    a.ACT_ID, 
-                    a.Activity_Name, 
-                    a.Description_ACT, 
-                    a.DATE_MADE, 
-                    a.Place, 
-                    a.Picture, 
-                    a.Pin, 
-                    t.Type_Name
-                FROM ?? a
-                JOIN ?? t ON a.Type_ID = t.Type_ID`;
+        SELECT 
+            a.ACT_ID, 
+            a.ACT_Name, 
+            a.ACT_Desc, 
+            a.DATE_MADE, 
+            a.Place, 
+            a.Cover_Picture, 
+            a.Pin, 
+            t.Type_Name
+        FROM ${tableName1} a
+        JOIN ${tableName2} t ON a.Type_ID = t.Type_ID`;
 
-      connection.query(sql, [tableName1, tableName2], (err, results) => {
-        if (err) {
-          console.error("Database Error:", err);
-          return reject(err);
-        }
-        resolve(results);
-      });
-    });
+      const [results] = await connection.execute(sql, [tableName1, tableName2]);
+      return results;
+    } catch (err) {
+      console.error("Database Error:", err);
+      throw err;
+    }
   },
 
-  getDataById: async (tableName1,tableName2, id) => {
-    return new Promise((resolve, reject) => {
+  getDataById: async (tableName1, tableName2, id) => {
+    try {
       const sql = `
         SELECT 
             a.ACT_ID, 
@@ -38,17 +36,20 @@ const FetchService = {
             a.Picture, 
             a.Pin, 
             t.Type_Name
-        FROM ?? a
-        JOIN ?? t ON a.Type_ID = t.Type_ID
+        FROM ${tableName1} a
+        JOIN ${tableName2} t ON a.Type_ID = t.Type_ID
         WHERE a.ACT_ID = ?`;
-      connection.query(sql, [tableName1,tableName2, id], (err, results) => {
-        if (err) {
-          console.error("Database Error:", err);
-          return reject(err);
-        }
-        resolve(results.length ? results[0] : null);
-      });
-    });
+
+      const [results] = await connection.execute(sql, [
+        tableName1,
+        tableName2,
+        id,
+      ]);
+      return results.length ? results[0] : null;
+    } catch (err) {
+      console.error("Database Error:", err);
+      throw err;
+    }
   },
 };
 
