@@ -10,6 +10,11 @@
     height: 120px;
 }
 
+.hidden {
+    transform: translateY(-100%); /* ซ่อน navbar */
+    transition: transform 0.3s ease-in-out;
+  }
+
 .navbar-brand img {
     height: 100px; 
     width: auto; 
@@ -90,30 +95,6 @@
     color: #ffff !important;
 }
 
-.search-container {
-    flex-grow: 1;  
-    max-width: 400px;  
-    min-width: 200px;  
-    position: relative; 
-    display: flex;
-    align-items: center;
-}
-
-.search-container input {
-    width: 100%;  
-    padding: 8px 12px; 
-    padding-right: 35px;
-}
-
-.search-container i {
-    position: absolute;
-    right: 10px; 
-    color: #203864;
-    font-size: 20px;
-    cursor: pointer;
-    margin-right: 10px;
-}
-
 html, body {
     margin: 0;
     padding: 0;
@@ -133,15 +114,16 @@ body {
 }
 
 .form-container {
-    background: rgba(255, 0, 0, 0.1);
+    background: rgba(0, 0, 0, 0.95) !important;
     padding: 20px;
     border-radius: 10px;
-    backdrop-filter: blur(15px);
+    backdrop-filter: blur(30px) !important;
     margin: 50px auto;
-    box-shadow: none;  
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.8) !important;  
     margin-top: 150px;
     width: 1000px; 
     height: auto;
+    opacity: 1 !important;
 }
 
 .form-label1{
@@ -248,6 +230,22 @@ body {
     opacity: 1 !important;
     backdrop-filter: blur(10px) !important; /* ทำให้พื้นหลังเบลอ */
     -webkit-backdrop-filter: blur(10px) !important; /* รองรับ Safari */
+}
+
+.form-label6{
+    font-size: 20px;
+}
+
+.image-preview {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.image-preview img {
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    object-fit: cover;
 }
 
 .form-label4{
