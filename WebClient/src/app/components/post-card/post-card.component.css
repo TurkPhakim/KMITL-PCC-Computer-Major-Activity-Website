@@ -1,0 +1,73 @@
+.post-card {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  background: var(--site-background);
+  font-family: var(--main-font);
+  border-radius: 10px;
+  padding: 15px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  text-decoration: none;
+  color: var(--text2-color);
+  transition: transform 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+.post-card:hover {
+  transform: scale(1.02);
+}
+
+.post-image {
+  width: 200px;
+  height: 200px;
+  /* object-fit: contain; */
+  object-fit: cover;
+  border-radius: 15px;
+}
+
+.post-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.post-title {
+  font-size: 22px;
+  font-weight: bold;
+  color: var(--secondary-color);
+}
+
+.post-lecturer, .post-location, .post-date {
+  font-size: 16px;
+  color: var(--text2-color);
+}
+/* ------------------------------------------- */
+/* .post-category {
+  font-size: 16px;
+  font-weight: bold;
+  padding: 4px 8px;
+  border-radius: 5px;
+  color: var(--text2-color);
+}
+
+.news {
+  background-color: #007bff;
+}
+
+.event {
+  background-color: #28a745; 
+} */
+/* ------------------------------------------- */
+
+/* Responsive */
+@media (max-width: 768px) {
+  .post-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .post-image {
+    width: 100%;
+    height: auto;
+  }
+}

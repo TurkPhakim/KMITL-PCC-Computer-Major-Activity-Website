@@ -1,1 +1,66 @@
 /* You can add global styles to this file, and also import other style files */
+
+/* @import 'bootstrap/dist/css/bootstrap.min.css' */
+/* @import url('https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;600;700&display=swap'); */
+
+/* Define the Primary font & Color palette of the website */
+:root {
+  --main-font: 'Prompt', sans-serif;
+  --primary-color: #203864;
+  --secondary-color: #f79b5b;
+  --tertiary-color: #e25822;
+  --site-background: #ffffff;
+  --show-post-background:#fff1d9;
+  --dorpdown-set: #0163cd;
+  --body-color: #e3e3e3;
+  --text-color: #ffffff;
+  --text2-color: #000000;
+  --text-error: #d30000;
+  --loader-text-color: #b4b4b4;
+}
+
+html, body {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+body {
+  font-family: var(--main-font);
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--text-color);
+  background-color: var(--body-color) !important;
+  margin: 0;
+  padding: 0;
+}
+
+main {
+  flex: 1;
+}
+
+footer {
+  margin-top: auto;
+}
+
+a {
+  text-decoration: none;
+  color: var(--secondary-color);
+}
+
+a:hover {
+  text-decoration: underline;
+  transition: all 0.3s ease;
+}
+
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--main-font);
+  font-weight: 700;
+  color: var(--text-color);
+}
