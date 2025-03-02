@@ -1,0 +1,41 @@
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: -100%;
+    width: 300px;
+    height: 100%;
+    background: var(--primary-color);
+    font-family: var(--main-font);
+    transition: 0.3s;
+    padding: 20px;
+}
+
+.sidebar.open {
+    left: 0;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: var(--secondary-color);
+    float: right;
+    cursor: pointer;
+}
+
+.nav-links {
+    margin-top: 50px;
+    list-style: none;
+    padding: 0;
+}
+
+.nav-links li {
+    margin: 15px;
+}
+
+.nav-links a {
+    color: var(--text-color);
+    text-decoration: none;
+    font-size: 23 px;
+    font-weight: bold;
+}

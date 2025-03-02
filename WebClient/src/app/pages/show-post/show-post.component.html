@@ -1,0 +1,23 @@
+<div class="container">
+  <!-- Dropdown to filter post categories -->
+  <div class="filter-container">
+    <select [(ngModel)]="selectedCategory" (change)="onCategoryChange(selectedCategory)">
+      <option value="all">ข่าวสารและกิจกรรม</option>
+      <option value="news">ข่าวสาร</option>
+      <option value="event">กิจกรรม</option>
+    </select>
+  </div>
+
+  <!-- Post List -->
+  <div class="post-list">
+    <app-post-card *ngFor="let post of filteredPosts" [post]="post" [routerLink]="['/post-detail', post.id]"></app-post-card>
+  </div>
+
+  <!-- Dropdown to filter post categories -->
+  <div class="button-container">
+    <button class="load-more-btn" *ngIf="hasMorePosts && !isLoading" (click)="loadMorePosts()">Load More</button>
+  </div>
+
+  <!-- Show Loader while loading posts -->
+  <div *ngIf="isLoading" class="loading">Loading...</div>
+</div>
