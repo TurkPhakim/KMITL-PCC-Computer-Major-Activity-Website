@@ -2,21 +2,16 @@
 <link href="https://cdn.jsdelivr.net/npm/quill/dist/quill.snow.css" rel="stylesheet">
 
 <!-- Navbars -->
-  <nav class="navbar bg-body-tertiary fixed-top">
+  <nav class="navbar bg-body-tertiary fixed-top" [ngClass]="{'hidden': !navbarVisible}">
     <div div class="container-fluid d-flex align-items-center">
 
       <!-- Logo -->
       <a class="navbar-brand d-flex align-items-center" href="#">
-        <img src="../../assets/CE-LOGO-White.png" alt="Logo" width="300px" height="90px" class="Logo">
+        <img src="../../assets/CE-LOGO-White.png" alt="Logo" width="200px" height="100px" class="Logo">
       </a>
 
       <!-- ปุ่ม Search และ Hamburger -->
       <div class="d-flex ms-auto align-items-center">
-        <!-- Search bar -->
-        <form class="d-flex me-2 search-container" role="search">
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-          <i class='bx bx-search'></i>
-        </form>
         <!-- Hamburger -->
         <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -61,10 +56,27 @@
 
       <!-- คำอธิบาย -->
       <div class="form-group">
-        <label class="form-label3">เนื้อหาข่าวสารและกิจกรรม/คำอธิบาย</label>
-        <quill-editor [(ngModel)]="eventDescription" [styles]="{ height: '300px' }" placeholder="เนื้อหาข่าวสารและกิจกรรม..."></quill-editor>
+        <label class="form-label3">เนื้อหาข่าวสารและกิจกรรม/คำอธิบาย</label><br>
+        <quill-editor [(ngModel)]="eventDescription" [styles]="{ height: '400px' ,width: '950px' }" placeholder="เนื้อหาข่าวสารและกิจกรรม..." [modules]="quillConfig.modules"></quill-editor>
       </div>
 
+      <!-- อัปโหลดรูปภาพเพิ่มเติม -->
+      <div class="form-group">
+        <label class="form-label6">อัปโหลดรูปภาพเพิ่มเติม</label>
+        <input type="file" class="form-control" (change)="onFileChange($event)" multiple accept="image/*">
+        <p class="char-limit">* กรุณาเลือกรูปภาพไม่เกิน 3 รูป</p>
+      </div>
+    
+      <!-- แสดงตัวอย่างภาพที่อัปโหลด -->
+      <div *ngIf="selectedFiles.length > 0">
+        <p>ไฟล์ที่เลือก:</p>
+        <div class="image-preview">
+            <div *ngFor="let file of selectedFiles">
+                <img [src]="getImagePreview(file)" width="100" height="100" style="margin: 5px;">
+            </div>
+        </div><br>
+      </div>
+    
       <!-- สถานที่ -->
       <div class="form-group">
         <label class="form-label4">สถานที่:</label>
