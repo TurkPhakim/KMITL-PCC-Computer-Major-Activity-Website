@@ -1,0 +1,148 @@
+/* Layout Design */
+.container {
+  background-color: var(--show-post-background);
+  font-family: var(--main-font);
+  width: 95%;
+  max-width: 1500px;
+  min-height: 60vh;
+  margin: 20px auto;
+  padding: 15px;
+  border-radius: 15px;
+  box-shadow: 0 5px 50px rgba(0, 0, 0, 0.5);
+}
+
+/* Dropdown (Filter) */
+.filter-container {
+  display: inline-block;
+  position: relative;
+  width: 300px;
+  margin-bottom: 16px;
+}
+
+/* Customize Dropdown */
+.filter-container select {
+  width: 100%;
+  padding: 10px 40px 10px 15px;
+  font-size: 16px;
+  font-weight: bold;
+  border: 2px solid var(--dorpdown-set);
+  border-radius: 15px;
+  background: var(--site-background);
+  color: var(--dorpdown-set);
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  appearance: none;
+}
+
+/* Dropdown Arrow */
+.filter-container::after {
+  content: "▼";
+  font-size: 16px;
+  color: var(--primary-color);
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+/* Animation Dropdown */
+.filter-container select:hover {
+  background: var(--dorpdown-set);
+  color: var(--text-color);
+  border-color: var(--primary-color);
+}
+
+.filter-container select:focus {
+  background: var(--dorpdown-set);
+  color: var(--text-color);
+  border-color: var(--primary-color);
+  ;
+  outline: none;
+}
+
+/* Post list*/
+.post-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-top: 20px;
+}
+
+/* Customize "Load More" button  */
+.load-more-btn {
+  width: 80%;
+  max-width: 300px;
+  padding: 14px 0;
+  text-align: center;
+  background: linear-gradient(135deg, var(--secondary-color), var(--secondary-color));
+  color: var(--text-color);
+  font-size: 18px;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  border-radius: 25px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease-in-out;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Hover Effect */
+.load-more-btn:hover {
+  transform: translateY(-3px);
+  background: linear-gradient(135deg, var(--tertiary-color), var(--tertiary-color));
+  box-shadow: 0 6px 12px rgba(255, 140, 0, 0.3);
+}
+
+/* Effect on click  */
+.load-more-btn::after {
+  content: "";
+  position: absolute;
+  width: 200%;
+  height: 200%;
+  top: 50%;
+  left: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  transition: transform 0.5s ease-out;
+}
+
+.load-more-btn:active::after {
+  transform: translate(-50%, -50%) scale(1);
+}
+
+/* Display Loader */
+.loading {
+  text-align: center;
+  font-size: 20px;
+  color: var(--loader-text-color);
+  margin-top: 10px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .container {
+    padding: 10px;
+  }
+
+  .filter-container {
+    width: 100%;
+  }
+
+  .filter-container select {
+    width: 100%;
+    font-size: 14px;
+  }
+
+  .load-more-btn {
+    width: 90%;
+  }
+}

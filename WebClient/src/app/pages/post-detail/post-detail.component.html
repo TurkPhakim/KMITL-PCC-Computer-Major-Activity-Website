@@ -1,0 +1,40 @@
+<div class="post-detail-container">
+    <!-- Show Loader -->
+    <div *ngIf="isLoading" class="loading"> Loading posts...</div>
+
+    <!-- Display post details -->
+    <div *ngIf="!isLoading && post">
+        <button class="btn back-btn" (click)="goBack()">⬅ กลับ</button>
+
+        <!-- Post title -->
+        <h1 class="post-title">{{ post.title }}</h1>
+        <!-- Post meta -->
+        <p class="post-meta">
+            🗣️ {{ post.lecturer }} | 📌 {{ post.location }} | 📅 {{ post.date }}
+        </p>
+
+        <!-- Display post coverImage -->
+        <img *ngIf="post?.coverImage" [src]="post.coverImage" alt="Cover Image" class="cover-image" />
+
+        <!-- Post description -->
+        <p class="post-description">{{ post.description }}</p>
+
+        <!-- External link -->
+        <p class="post-external" *ngIf="post.externalLink">
+            <strong>รูปภาพเพิ่มเติม: </strong>
+            <!-- <a [href]="post.externalLink" target="_blank">{{ post.externalLink }}</a> -->
+            <a [href]="post.externalLink" target="_blank">🔗 Click Me!</a>
+        </p>
+
+        <!-- Display additional images -->
+        <div class="post-images" *ngIf="post.images && post.images.length > 0">
+            <img *ngFor="let img of post.images" [src]="img" class="post-image" />
+        </div>
+    </div>
+
+    <!-- Display message if no data is available -->
+    <div *ngIf="!isLoading && !post" class="error-message">
+        <button class="btn back-btn" (click)="goBack()">⬅ กลับ</button>
+        ❌ No posts found
+    </div>
+</div>

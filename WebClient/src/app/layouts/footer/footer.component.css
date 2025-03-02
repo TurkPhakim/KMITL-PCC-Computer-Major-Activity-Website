@@ -1,0 +1,90 @@
+.footer {
+  background-color: var(--primary-color);
+  color: var(--text-color);
+  font-family: var(--main-font);
+  padding: 30px 0;
+  text-align: center;
+}
+
+.footer h5 {
+  font-size: 22px;
+  font-weight: bold;
+  margin-bottom: 15px;
+  color: var(--text-color);
+}
+
+p{
+  color: var(--secondary-color);
+}
+
+.footer-links {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-links li {
+  margin-bottom: 8px;
+  border-bottom: 4px solid rgba(255, 255, 255, 0.3);
+  border-radius: 10px;
+  padding-bottom: 5px;
+}
+
+.footer-links a {
+  color: var(--secondary-color);
+  font-size: 18px;
+  text-decoration: none;
+}
+
+.footer-links a:hover {
+  text-decoration: underline;
+}
+
+.footer .social {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.footer .social a {
+  display: flex;
+  align-items: center;
+  color: var(--text-color);
+  font-size: 20px;
+  text-decoration: none;
+  font-weight: bold;
+  gap: 10px;
+}
+
+.footer .social a:hover {
+  text-decoration: underline;
+}
+
+.footer .social span {
+  background-color: var(--secondary-color);
+  color: var(--primary-color);
+  border-radius: 50%;
+  padding: 10px;
+  font-size: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+  height: 30px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .footer .row {
+    text-align: center;
+  }
+  
+  .footer .social {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .footer .social span {
+    margin-bottom: 10px;
+  }
+}

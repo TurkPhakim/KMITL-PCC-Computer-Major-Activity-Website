@@ -1,0 +1,164 @@
+/* HEADER STYLES */
+.header {
+    width: 100%;
+    font-family: var(--main-font);
+}
+
+/* TOPBAR */
+.topbar {
+    background-color: var(--primary-color);
+    color: var(--text-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 20px;
+    font-size: 14px;
+}
+
+.campus-info {
+    font-weight: bold;
+    flex: 1;
+    text-align: left;
+    align-items: center;
+    padding-top: 8px;
+    white-space: nowrap;
+    display: flex;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* LOGIN BUTTON */
+.login-btn {
+    background-color: var(--secondary-color);
+    color: var(--text-color);
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-weight: bold;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+    border: none;
+    cursor: pointer;
+}
+
+/* LOGOUT BUTTON */
+.logout-btn {
+    background-color: var(--tertiary-color);
+    color: var(--text-color);
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-weight: bold;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+    border: none;
+    cursor: pointer;
+}
+
+.login-btn:hover,
+.logout-btn:hover {
+    opacity: 0.8;
+}
+
+/* NAVBAR */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background: var(--site-background);
+}
+
+/* LEFT SECTION (Hamburger + Logo) */
+.left-section {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+/* HAMBURGER BUTTON */
+.hamburger {
+    font-size: 22px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--primary-color);
+}
+
+/* LOGO */
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo img {
+    height: 45px;
+    margin-right: 8px;
+}
+
+.logo span {
+    font-size: 18px;
+    padding-top: 8px;
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+/* HOME ICON */
+.main-nav {
+    display: flex;
+    align-items: center;
+}
+
+.home-icon {
+    color: var(--primary-color);
+    font-size: 22px;
+    text-decoration: none;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .topbar {
+        font-size: 12px;
+        padding: 8px 15px;
+        flex-direction: column; /* Stack elements vertically on small screens */
+        align-items: center;
+    }
+
+    .campus-info {
+        font-size: 12px;
+        text-align: center;
+        white-space: normal;
+        padding-top: 3px;
+    }
+
+    .login-btn {
+        font-size: 12px;
+        padding: 8px 16px;
+        height: 36px;
+        margin-top: 5px;
+    }
+
+    .navbar {
+        padding: 8px 15px;
+    }
+
+    .hamburger {
+        font-size: 20px;
+    }
+
+    .logo img {
+        height: 35px;
+    }
+
+    .logo span {
+        font-size: 16px;
+    }
+
+    .home-icon {
+        font-size: 20px;
+    }
+}
