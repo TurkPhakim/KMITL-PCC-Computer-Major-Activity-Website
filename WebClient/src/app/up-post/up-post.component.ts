@@ -15,34 +15,20 @@ import { CommonModule } from '@angular/common';
 export class UpPostComponent {
   lastScrollTop = 0;
   navbarVisible = true;
-
-  @HostListener('window:scroll', ['$event'])
-  onWindowScroll() {
-    const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
-
-    if (currentScroll > this.lastScrollTop) {
-      this.navbarVisible = false;
-    } else {
-      this.navbarVisible = true;
-    }
-
-    this.lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
-  }
-
-  title = 'base';
+  selectedFiles: File[] = [];  // สำหรับเก็บไฟล์ที่อัปโหลด
   eventDescription: string = '';
   eventForm: FormGroup;
   private http = inject(HttpClient);
 
-  // กำหนดค่า Quill modules และ toolbar เพื่อปิดฟังก์ชันการแนบรูปและฟอนต์
+  // กำหนด tools bar Quill modules
   quillConfig = {
     modules: {
       toolbar: [
-        [{ 'header': '1'}, { 'header': '2'}],  // ไม่เลือก font
+        [{ 'header': '1'}, { 'header': '2'}], 
         [{ 'align': [] }],
         ['bold', 'italic', 'underline'],
         [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-        ['link']  // ไม่ใช้ image
+        ['link'] 
       ]
     }
   };
@@ -58,29 +44,46 @@ export class UpPostComponent {
     });
   }
 
+  @HostListener('window:scroll', ['$event'])
+  onWindowScroll() {
+    const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+
+    if (currentScroll > this.lastScrollTop) {
+      this.navbarVisible = false;
+    } else {
+      this.navbarVisible = true;
+    }
+
+    this.lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
+  }
+
   submitForm() {
     if (this.eventForm.invalid) {
       alert('กรุณากรอกข้อมูลให้ครบถ้วน');
       return;
     }
 
-    const formData = this.eventForm.value;
-    if (formData.image) {
-      const reader = new FileReader();
-      reader.readAsDataURL(formData.image);
-      reader.onload = () => {
-        formData.image = reader.result as string;
-        this.sendDataToAPI(formData);
-      };
-    } else {
-      this.sendDataToAPI(formData);
+    const formData = new FormData(); 
+
+    formData.append('title', this.eventForm.get('title')?.value);
+    formData.append('description', this.eventForm.get('description')?.value);
+    formData.append('location', this.eventForm.get('location')?.value);
+    formData.append('advisor', this.eventForm.get('advisor')?.value);
+    formData.append('type', this.eventForm.get('type')?.value);
+
+    // ถ้ามีไฟล์ในฟอร์ม (สำหรับอัปโหลดรูปหลัก)
+    if (this.selectedFiles.length > 0) {
+      this.selectedFiles.forEach(file => {
+        formData.append('images[]', file, file.name); 
+      });
     }
+
+    // ส่งข้อมูลไปยัง API
+    this.sendDataToAPI(formData);
   }
 
-  sendDataToAPI(formData: any) {
-    this.http.post('https://your-api-url.com/events', formData, {
-      headers: { 'Content-Type': 'application/json' }
-    }).subscribe(
+  sendDataToAPI(formData: FormData) {
+    this.http.post('https:บลาๆๆ', formData).subscribe(
       response => {
         console.log('ส่งข้อมูลสำเร็จ:', response);
         alert('ส่งข้อมูลสำเร็จ!');
@@ -92,16 +95,16 @@ export class UpPostComponent {
     );
   }
 
-  selectedFiles: File[] = [];
-
+  // ฟังก์ชันสำหรับจัดการไฟล์ที่เลือก
   onFileChange(event: any) {
     const files = event.target.files;
     if (files.length > 0) {
-      this.selectedFiles = Array.from(files); // แปลง FileList เป็น Array
+      this.selectedFiles = Array.from(files); 
     }
   }
 
+  // ฟังก์ชันแสดงตัวอย่างภาพที่อัปโหลด
   getImagePreview(file: File): string {
-    return URL.createObjectURL(file); // สร้าง URL แสดงภาพตัวอย่าง
+    return URL.createObjectURL(file); 
   }
 }
