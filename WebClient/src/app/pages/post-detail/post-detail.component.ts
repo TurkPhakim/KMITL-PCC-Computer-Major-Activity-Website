@@ -77,7 +77,7 @@ export class PostDetailComponent implements OnInit {
         date: '18 ธันวาคม 2567',
         description: '9 ขุนเขา 8 ศรีธันดร 1 โลกธาตุ 1000 จักรวาล รวมเป็น สหัสโลกธาตุ ตรี สหัสโลกธาตุ รวมกัน ไม่มีสิ่งใดที่ตัดไม่ได้ วิชาลับ 3 ดาบ สหัสตรีสหัสสมหาสหโลกธาตุ',
         category: 'event',
-        externalLink: 'https://example.com/more-info',
+        externalLink: 'https://www.facebook.com/Prt.ChumphonProvincialPolice',
         images: ['../../assets/Phusit-test.jpg', '../../assets/Phusit2-test.jpg'],
       },
       {
