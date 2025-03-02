@@ -1,13 +1,29 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { UpPostComponent } from "./up-post/up-post.component";
+import { RouterModule } from '@angular/router';
+import { HeaderComponent } from './layouts/header/header.component';
+import { NavbarComponent } from './layouts/navbar/navbar.component';
+import { FooterComponent } from './layouts/footer/footer.component';
+//import { UpPostComponent } from "./up-post/up-post.component";
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, UpPostComponent],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  standalone: true,  // Uses Standalone Component
+  imports: [
+    RouterModule,  // Supports Routing
+    HeaderComponent,  // Import Header
+    NavbarComponent,  // Import Navbar
+    FooterComponent,  // Import Footer
+  ],
+  template: `
+    <app-header></app-header>  <!-- Header -->
+    <app-navbar></app-navbar>  <!-- Navbar -->
+    <main class="container mt-4">
+      <router-outlet></router-outlet>  <!--  Displays page based on the Route  -->
+    </main>
+    <app-footer></app-footer>  <!-- Footer -->
+  `,
+  styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent { 
   title = 'base';
 }
