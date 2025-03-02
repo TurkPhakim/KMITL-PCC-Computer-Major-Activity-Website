@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, HostListener } from '@angular/core';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { QuillModule } from 'ngx-quill';
@@ -10,13 +10,42 @@ import { CommonModule } from '@angular/common';
   selector: 'app-up-post',
   imports: [QuillModule, FormsModule, ReactiveFormsModule, HttpClientModule, CommonModule],
   templateUrl: './up-post.component.html',
-  styleUrl: './up-post.component.css'
+  styleUrls: ['./up-post.component.css']
 })
 export class UpPostComponent {
+  lastScrollTop = 0;
+  navbarVisible = true;
+
+  @HostListener('window:scroll', ['$event'])
+  onWindowScroll() {
+    const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+
+    if (currentScroll > this.lastScrollTop) {
+      this.navbarVisible = false;
+    } else {
+      this.navbarVisible = true;
+    }
+
+    this.lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
+  }
+
   title = 'base';
   eventDescription: string = '';
   eventForm: FormGroup;
-  private http = inject(HttpClient);  // ใช้ inject
+  private http = inject(HttpClient);
+
+  // กำหนดค่า Quill modules และ toolbar เพื่อปิดฟังก์ชันการแนบรูปและฟอนต์
+  quillConfig = {
+    modules: {
+      toolbar: [
+        [{ 'header': '1'}, { 'header': '2'}],  // ไม่เลือก font
+        [{ 'align': [] }],
+        ['bold', 'italic', 'underline'],
+        [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+        ['link']  // ไม่ใช้ image
+      ]
+    }
+  };
 
   constructor(private fb: FormBuilder) {
     this.eventForm = this.fb.group({
@@ -63,10 +92,16 @@ export class UpPostComponent {
     );
   }
 
+  selectedFiles: File[] = [];
+
   onFileChange(event: any) {
-    const file = event.target.files[0];
-    this.eventForm.patchValue({
-      image: file
-    });
+    const files = event.target.files;
+    if (files.length > 0) {
+      this.selectedFiles = Array.from(files); // แปลง FileList เป็น Array
+    }
+  }
+
+  getImagePreview(file: File): string {
+    return URL.createObjectURL(file); // สร้าง URL แสดงภาพตัวอย่าง
   }
 }
