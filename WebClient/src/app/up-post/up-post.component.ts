@@ -1,37 +1,41 @@
-import { Component, inject, HostListener } from '@angular/core';
+import { Component, inject, HostListener, ChangeDetectorRef, AfterViewInit, AfterViewChecked, OnInit, NgZone } from '@angular/core';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { QuillModule } from 'ngx-quill';
-import { FormsModule } from '@angular/forms';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-up-post',
+  standalone: true,
   imports: [QuillModule, FormsModule, ReactiveFormsModule, HttpClientModule, CommonModule],
   templateUrl: './up-post.component.html',
   styleUrls: ['./up-post.component.css']
 })
-export class UpPostComponent {
+export class UpPostComponent implements OnInit, AfterViewInit, AfterViewChecked {
   lastScrollTop = 0;
   navbarVisible = true;
-  selectedFiles: File[] = [];  // สำหรับเก็บไฟล์ที่อัปโหลด
+  mainImage: File | null = null;
+  additionalImages: File[] = [];
   eventDescription: string = '';
   eventForm: FormGroup;
   private http = inject(HttpClient);
+  private cdr = inject(ChangeDetectorRef);
+  private ngZone = inject(NgZone);
 
-  // กำหนด tools bar Quill modules
   quillConfig = {
     modules: {
       toolbar: [
-        [{ 'header': '1'}, { 'header': '2'}], 
-        [{ 'align': [] }],
+        [{ header: '1' }, { header: '2' }],
+        [{ align: [] }],
         ['bold', 'italic', 'underline'],
-        [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-        ['link'] 
+        [{ list: 'ordered' }, { list: 'bullet' }],
+        ['link']
       ]
     }
   };
+
+  imagePreviewUrl: string = '';
 
   constructor(private fb: FormBuilder) {
     this.eventForm = this.fb.group({
@@ -39,22 +43,79 @@ export class UpPostComponent {
       description: ['', Validators.required],
       location: ['', Validators.required],
       advisor: ['', Validators.required],
-      type: ['event', Validators.required],
-      image: [null]
+      type: ['event', Validators.required]
     });
+  }
+
+  ngOnInit() {}
+
+  ngAfterViewInit() {
+    setTimeout(() => {
+      this.cdr.detectChanges();
+    }, 0);
+  }
+
+  ngAfterViewChecked() {
+    // เราจะใช้ `ngAfterViewChecked` เพื่อตรวจสอบการเปลี่ยนแปลงหลังจากการแสดงผลของ view
+    if (this.imagePreviewUrl) {
+      this.ngZone.run(() => {
+        this.cdr.detectChanges();
+      });
+    }
   }
 
   @HostListener('window:scroll', ['$event'])
   onWindowScroll() {
     const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+    this.navbarVisible = currentScroll < this.lastScrollTop;
+    this.lastScrollTop = Math.max(currentScroll, 0);
+  }
 
-    if (currentScroll > this.lastScrollTop) {
-      this.navbarVisible = false;
+  onMainImageChange(event: any) {
+    const file = event.target.files[0];
+    if (file && this.isValidImage(file)) {
+      this.mainImage = file;
+      this.imagePreviewUrl = URL.createObjectURL(file);
+
+      // ใช้ NgZone เพื่อให้การเปลี่ยนแปลงเกิดขึ้นในโซนของ Angular
+      this.ngZone.run(() => {
+        setTimeout(() => {
+          this.cdr.detectChanges(); // บังคับให้ Angular ตรวจสอบการเปลี่ยนแปลงใหม่
+        }, 0);
+      });
     } else {
-      this.navbarVisible = true;
+      alert('กรุณาเลือกไฟล์ภาพที่ถูกต้อง');
     }
+  }
 
-    this.lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
+  onAdditionalImagesChange(event: Event) {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      const filesArray = Array.from(input.files).slice(0, 3); // จำกัด 3 รูป
+
+      this.ngZone.run(() => {
+        setTimeout(() => {
+          this.additionalImages = filesArray;
+          this.cdr.detectChanges(); // บังคับให้ Angular ตรวจสอบการเปลี่ยนแปลงใหม่
+        }, 0);
+      });
+    }
+  }
+
+  isValidImage(file: File): boolean {
+    return file.type.startsWith('image/');
+  }
+
+  getMainImagePreview(): string | null {
+    return this.imagePreviewUrl || null;
+  }
+
+  getAdditionalImagePreview(file: File): string {
+    return file ? URL.createObjectURL(file) : '';
+  }
+
+  trackByFn(index: number, item: File): string {
+    return item.name;
   }
 
   submitForm() {
@@ -62,28 +123,38 @@ export class UpPostComponent {
       alert('กรุณากรอกข้อมูลให้ครบถ้วน');
       return;
     }
-
-    const formData = new FormData(); 
-
+  
+    const formData = new FormData();
     formData.append('title', this.eventForm.get('title')?.value);
     formData.append('description', this.eventForm.get('description')?.value);
     formData.append('location', this.eventForm.get('location')?.value);
     formData.append('advisor', this.eventForm.get('advisor')?.value);
     formData.append('type', this.eventForm.get('type')?.value);
-
-    // ถ้ามีไฟล์ในฟอร์ม (สำหรับอัปโหลดรูปหลัก)
-    if (this.selectedFiles.length > 0) {
-      this.selectedFiles.forEach(file => {
-        formData.append('images[]', file, file.name); 
-      });
+  
+    if (this.mainImage) {
+      formData.append('mainImage', this.mainImage);
     }
+  
+    this.additionalImages.forEach((file, index) => {
+      formData.append(`additionalImages[${index}]`, file);
+    });
+  
+    console.log('Form Data:', {
+      title: this.eventForm.get('title')?.value,
+      description: this.eventForm.get('description')?.value,
+      location: this.eventForm.get('location')?.value,
+      advisor: this.eventForm.get('advisor')?.value,
+      type: this.eventForm.get('type')?.value,
+      mainImage: this.mainImage,
+      additionalImages: this.additionalImages
+    });
 
-    // ส่งข้อมูลไปยัง API
-    this.sendDataToAPI(formData);
+    // Comment out the API call for now
+    // this.sendDataToAPI(formData);
   }
 
   sendDataToAPI(formData: FormData) {
-    this.http.post('https:บลาๆๆ', formData).subscribe(
+    this.http.post('https://your-api-url.com/upload', formData).subscribe(
       response => {
         console.log('ส่งข้อมูลสำเร็จ:', response);
         alert('ส่งข้อมูลสำเร็จ!');
@@ -93,18 +164,5 @@ export class UpPostComponent {
         alert('เกิดข้อผิดพลาดในการส่งข้อมูล');
       }
     );
-  }
-
-  // ฟังก์ชันสำหรับจัดการไฟล์ที่เลือก
-  onFileChange(event: any) {
-    const files = event.target.files;
-    if (files.length > 0) {
-      this.selectedFiles = Array.from(files); 
-    }
-  }
-
-  // ฟังก์ชันแสดงตัวอย่างภาพที่อัปโหลด
-  getImagePreview(file: File): string {
-    return URL.createObjectURL(file); 
   }
 }

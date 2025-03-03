@@ -109,7 +109,7 @@ body {
     height: 100vh; 
     margin: 0;
     padding: 0;
-    background: url('../../assets/Background.jpg') center/cover no-repeat;
+    background: url('../../../assets/Background.jpg') center/cover no-repeat;
     color: white;
     background-size: cover;
     background-position: center; 
@@ -118,7 +118,7 @@ body {
 
 /* ---------- พื้นหลังเบลอ ---------- */
 .form-container {
-    background: rgba(0, 0, 0, 0.95) !important;
+    background: rgba(0, 0, 0, 0.3) !important;
     padding: 20px;
     border-radius: 10px;
     backdrop-filter: blur(30px) !important;
@@ -182,52 +182,50 @@ body {
     margin-bottom: 30px;
 }
 
+/* ---------- ช่องพรีวิวรูปภาพที่อัพโหลด ---------- */
+.main-image-preview {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.main-image-preview img {
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    object-fit: cover;
+    margin-top: 30px;
+    margin-left: -70px;
+}
+
 /* ---------- ช่องกรอกเนื้อหาข่าวสารและกิจกรรม ---------- */
 .event-description .form-control{
     margin-bottom: 20px;
 }
 
 /* ---------- text editor ---------- */
-.ql-container {
-    background: #ffffff !important;  
-    border: 1px solid #ccc !important;  
-    border-radius: 5px;
-    min-height: 300px;  
-    opacity: 1 !important;  
-}
+::ng-deep .ql-container {
+    height: 400px;
+    width: 950px;
+  }
+  
+  ::ng-deep .ql-editor {
+    font-size: 16px; 
+    color: #ffffff; 
+  }
+  
+  ::ng-deep .ql-toolbar {
+    background-color: #f1f1f1; 
+    border: 1px solid #ccc; 
+  }
 
-.ql-editor {
-    background: #ffffff !important;  
-    color: black !important;  
-    font-family: Arial, sans-serif !important;  
-    font-size: 16px;  
-    line-height: 1.5;  
-    padding: 10px;  
-    border-radius: 5px;
-    min-height: 300px;  
-}
-
-.ql-toolbar {
-    background: #f1f1f1 !important;  
-    border: 1px solid #ccc !important;  
-    padding: 8px;
-    border-radius: 5px;
-}
-
-.ql-toolbar button {
-    color: black !important;  
-}
-
-.ql-container, .ql-editor, .ql-toolbar {
-    opacity: 1 !important;  
-    backdrop-filter: none !important;  
-}
-
-/* ---------- ช่องพรีวิวรูปภาพที่อัพเดทเพิ่มเติม ---------- */
+/* ---------- ช่องพรีวิวรูปภาพที่อัพโหลดเพิ่มเติม ---------- */
 .image-preview {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
+    margin-bottom: 20px;
 }
 
 .image-preview img {
