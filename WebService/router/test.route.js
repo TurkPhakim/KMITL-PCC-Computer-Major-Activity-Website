@@ -8,9 +8,9 @@ const {
 } = require("../controller/test.controller.js");
 
 const route = express.Router();
-const authMiddleware = require("../Middleware/authMiddleware.js");
-const adminMiddleware = require("../Middleware/adminMiddleware.js");
-const upload = require("../Middleware/upload.js")
+const authMiddleware = require("../Middleware/auth.middleware.js");
+const adminMiddleware = require("../Middleware/admin.middleware.js");
+const upload = require("../Middleware/upload.middleware.js")
 
 
 route.get("/test", testSys);
