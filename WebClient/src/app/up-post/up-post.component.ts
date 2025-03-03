@@ -43,7 +43,8 @@ export class UpPostComponent implements OnInit, AfterViewInit, AfterViewChecked 
       description: ['', Validators.required],
       location: ['', Validators.required],
       advisor: ['', Validators.required],
-      type: ['event', Validators.required]
+      type: ['event', Validators.required],
+      eventDate: ['', Validators.required] 
     });
   }
 
@@ -124,20 +125,24 @@ export class UpPostComponent implements OnInit, AfterViewInit, AfterViewChecked 
       return;
     }
   
-    const formData = new FormData();
-    formData.append('title', this.eventForm.get('title')?.value);
-    formData.append('description', this.eventForm.get('description')?.value);
-    formData.append('location', this.eventForm.get('location')?.value);
-    formData.append('advisor', this.eventForm.get('advisor')?.value);
-    formData.append('type', this.eventForm.get('type')?.value);
+    const formDataJson = {
+      title: this.eventForm.get('title')?.value,
+      description: this.eventForm.get('description')?.value,
+      location: this.eventForm.get('location')?.value,
+      advisor: this.eventForm.get('advisor')?.value,
+      type: this.eventForm.get('type')?.value,
+      eventDate: this.eventForm.get('eventDate')?.value, 
+      mainImage: this.mainImage ? this.mainImage.name : null, 
+      additionalImages: this.additionalImages.map(file => file.name)
+    };  
   
-    if (this.mainImage) {
-      formData.append('mainImage', this.mainImage);
-    }
+    //if (this.mainImage) {
+    //  formData.append('mainImage', this.mainImage);
+    //}
   
-    this.additionalImages.forEach((file, index) => {
-      formData.append(`additionalImages[${index}]`, file);
-    });
+    //this.additionalImages.forEach((file, index) => {
+    //  formData.append(`additionalImages[${index}]`, file);
+    //});
   
     console.log('Form Data:', {
       title: this.eventForm.get('title')?.value,
@@ -145,6 +150,7 @@ export class UpPostComponent implements OnInit, AfterViewInit, AfterViewChecked 
       location: this.eventForm.get('location')?.value,
       advisor: this.eventForm.get('advisor')?.value,
       type: this.eventForm.get('type')?.value,
+      eventDate: this.eventForm.get('eventDate')?.value,
       mainImage: this.mainImage,
       additionalImages: this.additionalImages
     });
