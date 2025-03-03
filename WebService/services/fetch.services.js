@@ -10,6 +10,7 @@ const extractExternalLink = (description) => {
   }
   return { externalLink: null, updatedDescription: description };
 };
+
 const formatDate = (dateString) => {
   const date = new Date(dateString);
   const year = date.getFullYear();
