@@ -1,11 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
 
 /* @import 'bootstrap/dist/css/bootstrap.min.css' */
-/* @import url('https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;600;700&display=swap'); */
 
 /* Define the Primary font & Color palette of the website */
 :root {
-  --main-font: 'Prompt', sans-serif;
+  --main-font: 'Noto Sans', 'Prompt', sans-serif;
   --primary-color: #203864;
   --secondary-color: #f79b5b;
   --tertiary-color: #e25822;

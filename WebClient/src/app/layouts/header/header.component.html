@@ -2,10 +2,12 @@
     <!-- Top Bar -->
     <div class="topbar">
         <p class="campus-info">สถาบันเทคโนโลยีพระจอมเกล้าเจ้าคุณทหารลาดกระบัง วิทยาเขตชุมพรเขตรอุดมศักดิ์</p>
-        <button class="login-btn" (click)="toggleLogin()" *ngIf="!isLoggedIn">
+        <!-- Login System : Show when not logged in -->
+        <button class="login-btn" (click)="login()" *ngIf="!isLoggedIn">
             เข้าสู่ระบบ
         </button>
-        <button class="logout-btn" (click)="toggleLogin()" *ngIf="isLoggedIn">
+        <!-- Logout System : Visible when logged in-->
+        <button class="logout-btn" (click)="logout()" *ngIf="isLoggedIn">
             ออกจากระบบ
         </button>
     </div>
@@ -27,7 +29,8 @@
 
         <!-- Navigation -->
         <nav class="main-nav">
-            <a routerLink="/" class="home-icon">
+            <!-- Button go back to Home -->
+            <a (click)="goHome()" class="home-icon">
                 <i class="fa-solid fa-home"></i>
             </a>
         </nav>

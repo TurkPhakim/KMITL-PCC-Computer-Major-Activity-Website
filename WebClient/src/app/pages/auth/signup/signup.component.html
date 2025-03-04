@@ -1,0 +1,58 @@
+<div class="signup-page">
+  <div class="signup-container">
+    <!-- Logo -->
+    <img src="../../../../assets/CE-LOGO-Black.png" alt="KMITL CE Logo" class="signup-logo" />
+
+    <!-- Sign-Up Form -->
+    <div class="signup-form">
+      <h2>สร้างบัญชี KMITL CE</h2>
+      <form [formGroup]="signUpForm" (ngSubmit)="signUp()">
+
+        <!-- Username -->
+        <div class="input-group">
+          <i class="fa-solid fa-user"></i>
+          <input type="text" formControlName="username" placeholder="ชื่อผู้ใช้งาน" required />
+        </div>
+
+        <!-- Email -->
+        <div class="input-group">
+          <i class="fa-solid fa-envelope"></i>
+          <input type="email" formControlName="email" placeholder="อีเมล" required />
+        </div>
+
+        <!-- Password -->
+        <div class="input-group">
+          <i class="fa-solid fa-lock"></i>
+          <input type="password" formControlName="password" placeholder="รหัสผ่าน" required />
+        </div>
+
+        <!-- Confirm Password -->
+        <div class="input-group">
+          <i class="fa-solid fa-key"></i>
+          <input type="password" formControlName="confirmPassword" placeholder="ยืนยันรหัสผ่าน" required />
+        </div>
+
+        <!-- Error Message -->
+        <div class="error-message" *ngIf="errorMessage">
+          {{ errorMessage }}
+        </div>
+
+        <!-- Sign Up Button -->
+        <button type="submit" class="btn-signup" [disabled]="isLoading || signUpForm.invalid">
+          <span *ngIf="isLoading">กำลังสมัครสมาชิก...</span>
+          <span *ngIf="!isLoading">ลงทะเบียน</span>
+        </button>
+      </form>
+
+      <span class="signup-check">
+        <p class="signup-check">มีบัญชีอยู่แล้ว? <a [routerLink]="'/login'">เข้าสู่ระบบ</a></p>
+      </span>
+
+    </div>
+  </div>
+  <div class="welcome-container">
+    <h2>ยินดีต้อนรับ!</h2>
+    <p>หากต้องการติดตามเรา โปรดเข้าสู่ระบบด้วยบัญชีของคุณ</p>
+    <button class="btn-login" [routerLink]="'/login'">เข้าสู่ระบบ</button>
+  </div>
+</div>

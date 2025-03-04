@@ -9,43 +9,43 @@ import { environment } from '../../environments/environment'; // Environment Var
   providedIn: 'root' // PostService injected throughout the app
 })
 export class PostService {
-  private apiUrl = 'http://localhost:3000';
-  //private apiUrl = `${environment.apiBaseUrl}/posts`; // Environment API URL
+  //private apiBaseUrl = 'http://localhost:3000';
+  private apiBaseUrl = `${environment.apiBaseUrl}/posts`; // Environment API URL
 
   constructor(private http: HttpClient) {}
 
   // Fetch all posts (Supports Pagination & Category Filter)
   getPosts(page: number, category: string = 'all'): Observable<Post[]> {
     const headers = this.getAuthHeaders();
-    return this.http.get<Post[]>(`${this.apiUrl}?page=${page}&category=${category}`, { headers })
+    return this.http.get<Post[]>(`${this.apiBaseUrl}?page=${page}&category=${category}`, { headers })
       .pipe(catchError(this.handleError<Post[]>('getPosts', [])));
   }
 
   // Fetch post by ID
   getPostById(id: string): Observable<Post> {
     const headers = this.getAuthHeaders();
-    return this.http.get<Post>(`${this.apiUrl}/${id}`, { headers })
+    return this.http.get<Post>(`${this.apiBaseUrl}/${id}`, { headers })
       .pipe(catchError(this.handleError<Post>('getPostById')));
   }
 
   // Create a new post
   createPost(post: Post): Observable<Post> {
     const headers = this.getAuthHeaders();
-    return this.http.post<Post>(this.apiUrl, post, { headers })
+    return this.http.post<Post>(this.apiBaseUrl, post, { headers })
       .pipe(catchError(this.handleError<Post>('createPost')));
   }
 
   // Update post
   updatePost(id: string, post: Post): Observable<Post> {
     const headers = this.getAuthHeaders();
-    return this.http.put<Post>(`${this.apiUrl}/${id}`, post, { headers })
+    return this.http.put<Post>(`${this.apiBaseUrl}/${id}`, post, { headers })
       .pipe(catchError(this.handleError<Post>('updatePost')));
   }
 
   // Delete post
   deletePost(id: string): Observable<void> {
     const headers = this.getAuthHeaders();
-    return this.http.delete<void>(`${this.apiUrl}/${id}`, { headers })
+    return this.http.delete<void>(`${this.apiBaseUrl}/${id}`, { headers })
       .pipe(catchError(this.handleError<void>('deletePost')));
   }
 
