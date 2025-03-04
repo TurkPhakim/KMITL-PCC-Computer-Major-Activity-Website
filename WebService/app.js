@@ -18,7 +18,6 @@ const uploadRoutes = require("./router/upload.route.js");
 app.use("/", testroutes);
 app.use("/activities", activitiesroutes);
 app.use("/auth", authroutes);
-app.use("/uploads", express.static("uploads"));
 app.use("/upload", uploadRoutes);
 
 app.use(function (req, res) {

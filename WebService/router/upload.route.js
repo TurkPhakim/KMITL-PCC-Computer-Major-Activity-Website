@@ -1,14 +1,15 @@
 const express = require("express");
-const upload = require("../Middleware/upload.js"); // Import multer middleware
-const { uploadActivity } = require("../controller/upload.controller.js");
 
-const router = express.Router();
+const { uploadActivity, testSys } = require("../controller/upload.controller.js");
+const upload = require("../Middleware/upload.middleware.js"); // Import multer middleware
+
+const route = express.Router();
 
 // Upload route (Handles Cover_Picture and multiple Picture uploads)
-router.post("/", upload.fields([
-    { name: "Cover_Picture", maxCount: 1 },  // Single cover image
-    { name: "Picture", maxCount: 5 } // Multiple pictures (max 5)
+route.post("/activity", upload.fields([
+    { name: "mainImage", maxCount: 1 },  // Single cover image
+    { name: "additionalImages", maxCount: 5 } // Multiple pictures (max 5)
 ]), uploadActivity);
-router.post("/upload", uploadActivity);
 
-module.exports = router;
+route.get("/test", testSys)
+module.exports = route;

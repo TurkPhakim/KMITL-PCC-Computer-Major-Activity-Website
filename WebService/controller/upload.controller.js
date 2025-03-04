@@ -1,47 +1,53 @@
-const conn = require("../services/dbconn");
+const insertService = require("../services/insertSql.services");
 
-const executeQuery = (sql, params) => {
-    return new Promise((resolve, reject) => {
-        conn.query(sql, params, (err, result) => {
-            if (err) reject(err);
-            else resolve(result);
-        });
-    });
-};
-
-const uploadActivity = async (req, res) => {
+async function uploadActivity(req, res) {
     try {
-        console.log("Received Request:", req.body);
+        const { title, description, location, advisor, eventDate, type } = req.body;
 
-        const { Activity_Name, ACT_DESC, DATE_MADE, Place, Pin, Type_ID, Cover_Picture, Picture } = req.body;
+        const mainImage = req.files && req.files["mainImage"] ? req.files["mainImage"][0] : null;
+        const additionalImages = req.files && req.files["additionalImages"] ? req.files["additionalImages"] : [];
 
-        if (!Activity_Name || !ACT_DESC || !DATE_MADE || !Place || !Pin || !Type_ID) {
-            console.log(" Missing fields");
-            return res.status(400).json({ message: "All fields are required" });
+        if (!mainImage) {
+            return res.status(400).json({ error: "Cover image is required." });
         }
 
-        console.log(" Request Data Valid");
+        if (!eventDate || !/^\d{4}-\d{2}-\d{2}$/.test(eventDate)) {
+            return res.status(422).json({ error: "Invalid eventDate format. Use YYYY-MM-DD." });
+        }
 
-        const coverPicture = Cover_Picture || null;
-        const pictures = Array.isArray(Picture) ? Picture : [];
-        const pictureJson = JSON.stringify(pictures);
+        const parsedDate = new Date(eventDate);
+        if (isNaN(parsedDate.getTime())) {
+            return res.status(422).json({ error: "Invalid eventDate value. Ensure it's a real date." });
+        }
 
-        console.log("Cover Picture:", coverPicture);
-        console.log("Pictures:", pictures);
-        console.log(" Preparing SQL Query...");
+        console.log("Cover Image:", mainImage.filename);
+        console.log("Additional Images:", additionalImages.map(file => file.filename));
 
-        const sql = `INSERT INTO Activity (Activity_Name, ACT_DESC, DATE_MADE, Place, Cover_Picture, Picture, Pin, Type_ID) 
-                     VALUES (?, ?, ?, ?, ?, ?, ?, ?)`;
+        const activityId = await insertService.insertActivitites(
+            title,
+            description,
+            eventDate,
+            location,
+            mainImage.filename,  // Main image (required)
+            0,                   // Default Pin value
+            type,
+            advisor
+        );
 
-        executeQuery(sql, [Activity_Name, ACT_DESC, DATE_MADE, Place, coverPicture, pictureJson, Pin, Type_ID]);
-
-        console.log(" Database Insert Success");
-        res.status(201).json({ message: "Activity uploaded successfully" });
+        res.status(200).json({ message: "Successfully inserted to database", activityId });
 
     } catch (error) {
-        console.log(" Error:", error);
-        res.status(500).json({ message: "Internal Server Error", error });
+        console.error("Error inserting activity:", error);
+        res.status(500).json({ error: "Internal Server Error" });
     }
-};
+}
 
-module.exports = { uploadActivity };
+async function testSys(req, res) {
+    try {
+      return res.status(200).json({ message: "HelloWorld" });
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
+module.exports = { uploadActivity, testSys };
