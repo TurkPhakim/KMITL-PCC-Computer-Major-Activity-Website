@@ -4,7 +4,6 @@ const conn = require("../services/dbconn");
 require("dotenv").config();
 
 const login = async (req, res) => {
-  console.log("Login request received:", req.body);
 
   const { email, password } = req.body;
 
@@ -19,7 +18,6 @@ const login = async (req, res) => {
     }
 
     const user = rows[0];
-    console.log("Found user:", user);
 
     if (!password || !user.Pass) {
       console.log("Password is undefined!");
@@ -37,8 +35,6 @@ const login = async (req, res) => {
       process.env.JWT_SECRET,
       { expiresIn: "1d" }
     );
-
-    console.log("Token Generated:", token);
     res.json({ message: "Login successful!", token });
   } catch (error) {
     console.error("Server error:", error);
