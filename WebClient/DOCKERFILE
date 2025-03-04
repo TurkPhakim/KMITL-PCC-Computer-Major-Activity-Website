@@ -16,12 +16,7 @@ COPY . .
 # เปิดพอร์ตสำหรับ Angular
 EXPOSE 4200
 
-<<<<<<< HEAD
-# รันคำสั่ง Angular serve
-CMD ["ng", "serve", "--host", "0.0.0.0"]
-=======
 RUN npm i
 # Start Angular in development mode
 CMD ["npm", "start", "--", "--host", "0.0.0.0"]
  
->>>>>>> c962c992b592c9f595de93d472617bfa4b58d6a8
