@@ -1,0 +1,44 @@
+<div class="login-page">
+  <div class="login-container">
+    <!-- KMITL CE LOGO -->
+    <img src="../../../../assets/CE-LOGO-Black.png" alt="KMITL CE Logo" class="login-logo" />
+
+    <!-- Login form section -->
+    <div class="login-form">
+      <h2>เข้าสู่ระบบ <span>KMITL CE</span></h2>
+
+      <form [formGroup]="loginForm" (ngSubmit)="login()">
+        <!-- E-mail -->
+        <div class="input-group">
+          <i class="fa-solid fa-envelope"></i>
+          <input type="email" formControlName="email" placeholder="อีเมล" required />
+        </div>
+        <div *ngIf="!loginForm.get('email')?.invalid && loginForm.get('email')?.touched" class="error-message">
+          ❌ กรุณากรอกอีเมลให้ถูกต้อง ❌
+        </div>
+
+        <!-- Password -->
+        <div class="input-group">
+          <i class="fa-solid fa-lock"></i>
+          <input type="password" formControlName="password" placeholder="รหัสผ่าน" required />
+        </div>
+        <div *ngIf="!loginForm.get('password')?.invalid && loginForm.get('password')?.touched" class="error-message">
+          ❌ กรุณากรอกรหัสผ่านที่มีอย่างน้อย 6 ตัวอักษร ❌
+        </div>
+
+        <!-- Login button -->
+        <button type="submit" class="btn-login" [disabled]="isLoading || loginForm.invalid">
+          <span *ngIf="isLoading">กำลังเข้าสู่ระบบ...</span>
+          <span *ngIf="!isLoading">เข้าสู่ระบบ</span>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Signup-link form section -->
+  <div class="signup-container">
+    <h2>Hello, World!</h2>
+    <p>มากรอกรายละเอียดของคุณ เพื่อเข้าสู่ระบบเว็บไซต์ของเราได้เลย</p>
+    <button class="btn-signup" [routerLink]="'/signup'">ลงทะเบียน</button>
+  </div>
+</div>
