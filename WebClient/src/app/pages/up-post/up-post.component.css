@@ -1,4 +1,8 @@
 /* -------------------------------------------- NAVBAR -------------------------------------------- */
+* {
+    box-sizing: border-box;
+}
+
 .navbar {
     background: linear-gradient(to right,#162542,#294881);
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
@@ -97,23 +101,28 @@
 }
 
 html, body {
+    height: 100%;
     margin: 0;
     padding: 0;
-    overflow-x: hidden;
+    overflow-y: scroll; /* ให้เลื่อนตาม scroll bar ของ browser */
 }
+
 
 /* -------------------------------------------- BODY -------------------------------------------- */
 
+
 /* ---------- Background ---------- */
 body {
-    height: 100vh !important; 
-    margin: 0 !important;
-    padding: 0 !important;
+    min-height: 100vh;  /* เปลี่ยนจาก height เป็น min-height */ 
+    margin-left: -110px;
+    margin-right: -105px;
     background: url('../../../assets/Background.jpg') center/cover no-repeat !important;
     color: white;
     background-size: cover;
-    background-position: center; 
     background-attachment: fixed;
+    background-position: center;
+    overflow: hidden; /* ซ่อน scroll bar ของ body */
+    background-position: top center;
 }
 
 /* ---------- พื้นหลังเบลอ ---------- */
@@ -285,4 +294,16 @@ body {
 
 .upload-button {
     text-align: right;
+}
+
+@media (max-width: 768px) {
+    body {
+        background-size: cover;  /* ปรับขนาดเป็น cover สำหรับอุปกรณ์ที่มีขนาดเล็ก */
+    }
+}
+
+@media (min-width: 769px) {
+    body {
+        background-size: contain;  /* ใช้ contain สำหรับหน้าจอใหญ่ */
+    }
 }
