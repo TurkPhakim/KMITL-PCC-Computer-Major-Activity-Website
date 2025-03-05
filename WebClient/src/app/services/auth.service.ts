@@ -153,6 +153,8 @@ export class AuthService {
 
   // RealAPI
   private realLogin(email: string, password: string): Observable<{ token: string; role: string }> {
+
+    console.log(`Shooting to login ${this.apiUrl}/login`);
     return this.http.post<{ token: string; role: string }>(`${this.apiUrl}/login`, { email, password })
       .pipe(map(response => {
         console.log('✅ [Real API] Login Response:', response);

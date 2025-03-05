@@ -32,6 +32,7 @@ async function uploadActivity(req, res) {
         // Generate unique filename based on current timestamp
         const coverImageName = `coverImage${Date.now()}${path.extname(mainImage.originalname)}`;
         const coverImagePath = path.join(coverDir, coverImageName);
+        const coverImageRelativePath = `/cover/${coverImageName}`;
 
         fs.renameSync(mainImage.path, coverImagePath);
 
@@ -39,8 +40,10 @@ async function uploadActivity(req, res) {
         additionalImages.forEach((file, index) => {
             const additionalImageName = `additionalImage${Date.now()}_${index}${path.extname(file.originalname)}`;
             const additionalImagePath = path.join(additionalDir, additionalImageName);
+            const additionalImageRelativePath = `/additionalImage/${additionalImageName}`;
+
             fs.renameSync(file.path, additionalImagePath);
-            additionalImagePaths.push(additionalImagePath);
+            additionalImagePaths.push(additionalImageRelativePath);
         });
 
         console.log("Cover Image:", coverImagePath);
@@ -51,7 +54,7 @@ async function uploadActivity(req, res) {
             description,
             eventDate,
             location,
-            coverImagePath,  // Main image (required)
+            coverImageRelativePath,  // Main image (required)
             0,                   // Default Pin value
             type,
             advisor

@@ -10,6 +10,7 @@ services:
       - backend
     volumes:
       - ./WebClient:/usr/src/app/WebClient
+      - ./WebService:/usr/src/app/Webservice
 
   backend:
     build:
@@ -27,7 +28,7 @@ services:
       - mysql
     command: ["npm", "run", "dev"]
     volumes:
-      - ./WebService:/usr/src/app/Webservice/
+      - ./WebService:/usr/src/app/Webservice
       - ./WebClient:/usr/src/app/WebClient
 
   mysql:

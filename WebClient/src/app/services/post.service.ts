@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError, of } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
 import { Post } from '../models/post'; // Import the Post interface
 import { environment } from '../../environments/environment.development'; // Environment Variable
 
@@ -10,22 +10,51 @@ import { environment } from '../../environments/environment.development'; // Env
 })
 export class PostService {
   //private apiBaseUrl = 'http://localhost:3000';
-  private apiBaseUrl = `${environment.apiBaseUrl}/posts`; // Environment API URL
+  private apiBaseUrl = `${environment.apiBaseUrl}/activities`; // Environment API URL
+  private imageBaseUrl = 'http://localhost:3000/images/';
 
   constructor(private http: HttpClient) {}
 
   // Fetch all posts (Supports Pagination & Category Filter)
   getPosts(page: number, category: string = 'all'): Observable<Post[]> {
     const headers = this.getAuthHeaders();
-    return this.http.get<Post[]>(`${this.apiBaseUrl}?page=${page}&category=${category}`, { headers })
-      .pipe(catchError(this.handleError<Post[]>('getPosts', [])));
+    return this.http
+      .get<Post[]>(`${this.apiBaseUrl}?page=${page}&category=${category}`, { headers })
+      .pipe(
+        map(posts =>
+          posts.map(post => ({
+            ...post,
+            coverImage: post.coverImage ? this.imageBaseUrl + post.coverImage : '', // Fix cover image path
+            images: post.images ? post.images.map(img => this.imageBaseUrl + img) : [] // Fix additional images
+          }))
+        ),
+        catchError(this.handleError<Post[]>('getPosts', []))
+      );
   }
 
-  // Fetch post by ID
-  getPostById(id: string): Observable<Post> {
-    const headers = this.getAuthHeaders();
-    return this.http.get<Post>(`${this.apiBaseUrl}/${id}`, { headers })
-      .pipe(catchError(this.handleError<Post>('getPostById')));
+  // getPosts(page: number, category: string = 'all'): Observable<Post[]> {
+  //   const headers = this.getAuthHeaders();
+  //   return this.http.get<Post[]>(${this.apiBaseUrl}?page=${page}&category=${category}, { headers })
+  //     .pipe(catchError(this.handleError<Post[]>('getPosts', [])));
+  // } 
+
+  // // Fetch post by ID
+  // getPostById(id: string): Observable<Post> {
+  //   const headers = this.getAuthHeaders();
+  //   return this.http.get<Post>(`${this.apiBaseUrl}/${id}`, { headers })
+  //     .pipe(catchError(this.handleError<Post>('getPostById')));
+  // }
+
+  getPostById(id: string): Observable<Post> { 
+    const headers = this.getAuthHeaders();  
+    return this.http.get<Post>(`${this.apiBaseUrl}/${id}`, { headers }).pipe(
+      map(post => ({
+        ...post,
+        coverImage: post.coverImage ? this.imageBaseUrl + post.coverImage : '', // Fix cover image path
+        images: post.images ? post.images.map(img => this.imageBaseUrl + img) : []
+      })),
+      catchError(this.handleError<Post>('getPostById'))
+    ); 
   }
 
   // Create a new post

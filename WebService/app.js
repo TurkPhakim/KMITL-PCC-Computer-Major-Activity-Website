@@ -15,10 +15,13 @@ const testroutes = require("./router/test.route.js");
 const activitiesroutes = require("./router/activities.route.js");
 const authroutes = require("./router/auth.route.js");
 const uploadRoutes = require("./router/upload.route.js");
+
 app.use("/", testroutes);
 app.use("/activities", activitiesroutes);
 app.use("/auth", authroutes);
 app.use("/upload", uploadRoutes);
+app.use('/images', express.static('assets/uploads/img'));
+
 
 app.use(function (req, res) {
   res.status(404).json({ message: "No such route exists" });
