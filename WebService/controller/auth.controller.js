@@ -42,4 +42,30 @@ const login = async (req, res) => {
   }
 };
 
-module.exports = { login };
+const signup = async (req, res) => {
+  const { email, username, password } = req.body;
+
+  if (!email || !username || !password) {
+    return res.status(400).json({ error: "All fields are required!" });
+  }
+
+  try {
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    const [result] = await conn.query(
+      "INSERT INTO USERS (Email, Username, Pass) VALUES (?, ?, ?)",
+      [email, username, hashedPassword]
+    );
+
+    if (result.affectedRows === 1) {
+      res.status(201).json({ message: "User registered successfully!" });
+    } else {
+      res.status(500).json({ error: "Failed to register user!" });
+    }
+  } catch (error) {
+    console.error("Server error:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
+
+module.exports = { login, signup };
