@@ -16,6 +16,8 @@
   --text2-color: #000000;
   --text-error: #d30000;
   --loader-text-color: #b4b4b4;
+  --create-post-color: #0a8f08;
+  --create2-post-color: #72d572;
 }
 
 html, body {

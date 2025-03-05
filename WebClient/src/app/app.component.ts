@@ -19,15 +19,15 @@ import { FooterComponent } from './layouts/footer/footer.component';
   ],
   template: ` 
     <!-- Main Template Layout of the Web Page -->
-    <app-header></app-header>  <!-- Header -->
-    <app-navbar></app-navbar>  <!-- Navbar -->
+    <app-header *ngIf="!isUpPostPage"></app-header>  <!-- Header -->
+    <app-navbar *ngIf="!isUpPostPage"></app-navbar>  <!-- Navbar -->
 
     <main class="container mt-4">
       <router-outlet></router-outlet>  <!--  Displays page based on the Route  -->
     </main>
 
     <!--  Hide Footer if on Login or Signup page -->
-    <app-footer *ngIf="!isAuthPage"></app-footer> <!-- Footer -->
+    <app-footer *ngIf="!isAuthPage && !isUpPostPage"></app-footer> <!-- Footer -->
     <!-- *ngIf → Conditional Rendering -->
   `,
   styleUrls: ['./app.component.css']
@@ -35,17 +35,23 @@ import { FooterComponent } from './layouts/footer/footer.component';
 export class AppComponent { 
   title = 'base';
   isAuthPage = false; // Check Auth page
+  isUpPostPage = false;
 
   constructor(private router: Router) {
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
+        //  ตรวจจับ URL ทุกครั้งที่เปลี่ยนหน้า
         console.log("Current URL:", event.url);
         console.log("Before Update -> isAuthPage:", this.isAuthPage);
+        console.log("Before Update -> isUpPostPage:", this.isUpPostPage);
 
         // Use setTimeout() to force reload the Footer
         setTimeout(() => {
           // Check Login or Signup page
           this.isAuthPage = event.url.includes('/login') || event.url.includes('/signup'); 
+          this.isUpPostPage = event.url.includes('/create');
+
+          console.log("After Update -> isUpPostPage:", this.isUpPostPage);
           console.log("After Update -> isAuthPage:", this.isAuthPage);
         }, 100);
       }

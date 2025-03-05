@@ -6,13 +6,9 @@ import { AuthService } from '../services/auth.service';
 @Injectable({
   providedIn: 'root'
 })
-
 export class AuthGuard implements CanActivate {
-
   private authService = inject(AuthService);
   private router = inject(Router);
-
-  // constructor(private authService: AuthService, private router: Router) {}
 
   canActivate(): boolean {
     if (this.authService.isLoggedIn()) {

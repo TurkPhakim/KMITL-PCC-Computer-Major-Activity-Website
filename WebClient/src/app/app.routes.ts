@@ -14,8 +14,8 @@ import { AdminGuard } from './guards/admin.guard';  // Import AdminGuard
 export const routes: Routes = [
   { path: '', component: ShowPostComponent, pathMatch: 'full' },  // Home Page
   { path: 'post/:id', component: PostDetailComponent },  // View post details
-  { path: 'create', component: UpPostComponent, canActivate: [AdminGuard] },  // Create a new post
-  { path: 'edit/:id', component: UpPostComponent, canActivate: [AdminGuard]},  // Edit post
+  { path: 'create', component: UpPostComponent, data: { layout: 'up-post' }, canActivate: [AdminGuard] },  // Create a new post
+  { path: 'edit/:id', component: UpPostComponent, data: { layout: 'up-post' }, canActivate:  [AdminGuard]},  // Edit post
 
   // Authentication Pages
   { path: 'login', component: LoginComponent }, // Login

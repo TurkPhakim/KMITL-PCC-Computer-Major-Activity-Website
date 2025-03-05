@@ -1,5 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { CanActivateFn } from '@angular/router';
+import { of } from 'rxjs';
 import { AdminGuard } from './admin.guard';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
@@ -18,20 +19,24 @@ describe('AdminGuard', () => {
         AdminGuard,
         { provide: AuthService, useValue: authServiceSpy },
         { provide: Router, useValue: routerSpy },
-      ],
+      ]
     });
 
     guard = TestBed.inject(AdminGuard);
   });
 
   it('should allow access when user is admin', () => {
-    authServiceSpy.getUserRole.and.returnValue('admin');
-    expect(guard.canActivate()).toBeTrue();
+    authServiceSpy.getUserRole.and.returnValue(of('admin'));
+    guard.canActivate().subscribe(result => {
+      expect(result).toBeTrue();
+    });
   });
 
   it('should block access when user is not admin', () => {
-    authServiceSpy.getUserRole.and.returnValue('user');
-    expect(guard.canActivate()).toBeFalse();
-    expect(routerSpy.navigate).toHaveBeenCalledWith(['/']);
+    authServiceSpy.getUserRole.and.returnValue(of('user'));
+    guard.canActivate().subscribe(result => {
+      expect(result).toBeFalse();
+      expect(routerSpy.navigate).toHaveBeenCalledWith(['/']);
+    });
   });
 });
