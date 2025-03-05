@@ -18,6 +18,7 @@ const formatDate = (dateString) => {
   const day = String(date.getDate()).padStart(2, '0');
   return `${day}-${month}-${year}`;
 };
+
 const FetchService = {
   getAllData: async (tableName1, tableName2) => {
     try {
@@ -36,7 +37,7 @@ const FetchService = {
         FROM ${tableName1} a
         JOIN ${tableName2} t ON a.Type_ID = t.Type_ID
         LEFT JOIN Activity_Images i ON a.ACT_ID = i.ACT_ID
-        ORDER BY a.ACT_ID ASC`; // Add ORDER BY clause
+        ORDER BY a.DATE_MADE DESC`;
 
       const [results] = await connection.execute(sql);
 
@@ -110,6 +111,17 @@ const FetchService = {
       throw err;
     }
   },
+
+  deleteDataById: async (tableName1, id) => {
+    try {
+      const sql = `DELETE FROM ${tableName1} WHERE ACT_ID = ?`;
+      const [result] = await connection.execute(sql, [id]);
+      return result;
+    } catch (err) {
+      console.error("Database Error:", err);
+      throw err;
+    }
+  }
 };
 
 module.exports = FetchService;

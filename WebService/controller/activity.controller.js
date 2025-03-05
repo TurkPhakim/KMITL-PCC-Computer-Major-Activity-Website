@@ -27,4 +27,20 @@ async function getActivityById(req, res) {
   }
 }
 
-module.exports = { getAllActivities, getActivityById };
+async function deleteActivityById(req, res) {
+  try {
+    const { id } = req.params;
+    const result = await FetchService.deleteDataById("Activity", id);
+
+    if (result.deletedCount === 0) {
+      return res.status(404).json({ message: "Activity not found" });
+    }
+    console.log("Delete complete");
+    res.status(200).json({ message: "Activity deleted successfully" });
+  } catch (error) {
+    console.error("Error deleting activity:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+}
+
+module.exports = { getAllActivities, getActivityById, deleteActivityById };
