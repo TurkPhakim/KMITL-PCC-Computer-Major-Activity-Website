@@ -10,4 +10,6 @@ export interface Post {
   date: string;           // Post date
   externalLink?: string;  // External Link
   images?: string[];      // Array Picture
+  isPinned?: boolean;     // Pin/Unpin
+
 }

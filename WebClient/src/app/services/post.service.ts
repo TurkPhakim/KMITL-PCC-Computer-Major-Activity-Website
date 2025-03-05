@@ -10,10 +10,17 @@ import { environment } from '../../environments/environment.development'; // Env
 })
 export class PostService {
   //private apiBaseUrl = 'http://localhost:3000';
-  private apiBaseUrl = `${environment.apiBaseUrl}/activities`; // Environment API URL
-  private imageBaseUrl = 'http://localhost:3000/images/';
+  // Environment API URL
+  private apiBaseUrl = `${environment.apiBaseUrl}/activities`; // Fetch post data
+  private imageBaseUrl = `${environment.apiBaseUrl}/images/`; // Load images from Backend
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
+
+  //  Convert image URL to a complete path (Fix Short-Path)
+  private ensureFullUrl(imagePath: string): string {
+    if (!imagePath) return '';
+    return imagePath.startsWith('http') ? imagePath : `${this.imageBaseUrl}${imagePath}`;
+  }
 
   // Fetch all posts (Supports Pagination & Category Filter)
   getPosts(page: number, category: string = 'all'): Observable<Post[]> {
@@ -21,40 +28,29 @@ export class PostService {
     return this.http
       .get<Post[]>(`${this.apiBaseUrl}?page=${page}&category=${category}`, { headers })
       .pipe(
-        map(posts =>
+        map(posts =>// Fix cover image path // Fix additional images
           posts.map(post => ({
             ...post,
-            coverImage: post.coverImage ? this.imageBaseUrl + post.coverImage : '', // Fix cover image path
-            images: post.images ? post.images.map(img => this.imageBaseUrl + img) : [] // Fix additional images
+            coverImage: this.ensureFullUrl(post.coverImage), // Fix Cover image path
+            images: post.images?.map(img => this.ensureFullUrl(img)) || [] // Fix Additional images
           }))
         ),
         catchError(this.handleError<Post[]>('getPosts', []))
       );
   }
 
-  // getPosts(page: number, category: string = 'all'): Observable<Post[]> {
-  //   const headers = this.getAuthHeaders();
-  //   return this.http.get<Post[]>(${this.apiBaseUrl}?page=${page}&category=${category}, { headers })
-  //     .pipe(catchError(this.handleError<Post[]>('getPosts', [])));
-  // } 
-
-  // // Fetch post by ID
-  // getPostById(id: string): Observable<Post> {
-  //   const headers = this.getAuthHeaders();
-  //   return this.http.get<Post>(`${this.apiBaseUrl}/${id}`, { headers })
-  //     .pipe(catchError(this.handleError<Post>('getPostById')));
-  // }
-
-  getPostById(id: string): Observable<Post> { 
-    const headers = this.getAuthHeaders();  
-    return this.http.get<Post>(`${this.apiBaseUrl}/${id}`, { headers }).pipe(
-      map(post => ({
-        ...post,
-        coverImage: post.coverImage ? this.imageBaseUrl + post.coverImage : '', // Fix cover image path
-        images: post.images ? post.images.map(img => this.imageBaseUrl + img) : []
-      })),
-      catchError(this.handleError<Post>('getPostById'))
-    ); 
+  // Fetch post by ID
+  getPostById(id: string): Observable<Post> {
+    const headers = this.getAuthHeaders();
+    return this.http.get<Post>(`${this.apiBaseUrl}/${id}`, { headers })
+      .pipe(
+        map(post => ({
+          ...post,
+          coverImage: this.ensureFullUrl(post.coverImage), // Fix Cover image path
+          images: post.images?.map(img => this.ensureFullUrl(img)) || [] // Fix Additional images
+        })),
+        catchError(this.handleError<Post>('getPostById'))
+      );
   }
 
   // Create a new post
@@ -78,7 +74,37 @@ export class PostService {
       .pipe(catchError(this.handleError<void>('deletePost')));
   }
 
-  // Function  add Authorization Headers for JWT Token
+   //  Delete post with confirmation
+  deletePostWithConfirmation(id: string): Observable<boolean> {
+    return new Observable<boolean>((observer) => {
+      const confirmDelete = window.confirm('คุณต้องการลบโพสต์นี้ใช่หรือไม่?');
+      if (confirmDelete) {
+        this.deletePost(id).subscribe(() => {
+          console.log('✅ ลบโพสต์สำเร็จ!');
+          observer.next(true);
+          observer.complete();
+        });
+      } else {
+        observer.next(false);
+        observer.complete();
+      }
+    });
+  }
+
+  // Pin/Unpin post
+  pinPost(id: string, isPinned: boolean): Observable<Post> {
+    const headers = this.getAuthHeaders();
+    return this.http.patch<Post>(`${this.apiBaseUrl}/${id}/pin`, { isPinned }, { headers })
+      .pipe(
+        map(response => {
+          console.log(`📌 ${isPinned ? 'ปักหมุด' : 'ยกเลิกปักหมุด'} โพสต์สำเร็จ`);
+          return response;
+        }),
+        catchError(this.handleError<Post>('pinPost'))
+      );
+  }
+
+  // Function add Authorization Headers for JWT Token
   private getAuthHeaders(): HttpHeaders {
     const authToken = localStorage.getItem('authToken') || ''; // Check token
     return new HttpHeaders().set('Authorization', `Bearer ${authToken}`);
@@ -87,7 +113,7 @@ export class PostService {
   // Function  handle errors
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
-      console.error(`${operation} failed: ${error.message}`); // Log Error
+      console.error(`❌ ${operation} failed: ${error.message}`); // Log Error
       return of(result as T); // Return default value -> prevent app crashes
     };
   }
