@@ -76,4 +76,15 @@ const checkRole = async (req, res) => {
   res.status(200).json({ message: `User role is ${roleName}`, role: `${roleName}` });
 };
 
-module.exports = { login, signup, checkRole };
+const logout = async (req, res) => {
+  try {
+    // Perform any necessary cleanup or logging here
+    console.log(`User with ID ${req.user.id} logged out.`);
+    res.status(200).json({ message: "Logout successful!" });
+  } catch (error) {
+    console.error("Server error:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
+
+module.exports = { login, signup, checkRole, logout };
