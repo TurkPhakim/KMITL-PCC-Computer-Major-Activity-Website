@@ -14,9 +14,25 @@ import { AdminGuard } from './guards/admin.guard';  // Import AdminGuard
 export const routes: Routes = [
   { path: '', component: ShowPostComponent, pathMatch: 'full' },  // Home Page
   { path: 'post/:id', component: PostDetailComponent },  // View post details
-  { path: 'create', component: UpPostComponent, data: { layout: 'up-post' }, canActivate: [AdminGuard] },  // Create a new post
-  { path: 'edit/:id', component: UpPostComponent, data: { layout: 'up-post' }, canActivate:  [AdminGuard]},  // Edit post
-
+  
+  //{ path: 'create', component: UpPostComponent, data: { layout: 'up-post' }, canActivate: [AdminGuard] },  // Create a new post
+  { 
+    path: 'create', 
+    // Angular Lazy Loading
+    loadComponent: () => import('./pages/up-post/up-post.component').then(m => m.UpPostComponent), 
+    canActivate: [AdminGuard], 
+    data: { standalone: true }  
+  }, 
+  
+  //{ path: 'edit/:id', component: UpPostComponent, data: { layout: 'up-post' }, canActivate:  [AdminGuard]},  // Edit post
+  { 
+    path: 'edit/:id', 
+    // Angular Lazy Loading 
+    loadComponent: () => import('./pages/up-post/up-post.component').then(m => m.UpPostComponent), 
+    canActivate: [AdminGuard], 
+    data: { standalone: true }  // Angular Standalone Page
+  },
+  
   // Authentication Pages
   { path: 'login', component: LoginComponent }, // Login
   { path: 'signup', component: SignUpComponent }, // Signup

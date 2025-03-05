@@ -49,7 +49,7 @@ export class AppComponent {
         setTimeout(() => {
           // Check Login or Signup page
           this.isAuthPage = event.url.includes('/login') || event.url.includes('/signup'); 
-          this.isUpPostPage = event.url.includes('/create');
+          this.isUpPostPage = event.url.includes('/create') || event.url.includes('/edit');
 
           console.log("After Update -> isUpPostPage:", this.isUpPostPage);
           console.log("After Update -> isAuthPage:", this.isAuthPage);
