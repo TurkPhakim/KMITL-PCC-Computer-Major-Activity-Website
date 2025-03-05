@@ -40,7 +40,7 @@ export class ShowPostComponent implements OnInit {
           // If the number of fetched posts is less than the limit, all posts have been loaded
           console.log('Loaded posts:', this.posts);
           this.filterPosts();
-          this.hasMorePosts = newPosts.length === this.limit;
+          //this.hasMorePosts = newPosts.length > this.limit;
           this.page++; // Increment page number
           this.isLoading = false;
         },
@@ -52,10 +52,38 @@ export class ShowPostComponent implements OnInit {
       );
     }
 
-    // Load more posts when the "Load More" button is clicked
-    loadMorePosts(): void {
-      this.loadPosts();
-    }
+    loadMorePosts() {
+      this.isLoading = true; // Loader Display
+
+      setTimeout(() => {
+        const startIndex = this.filteredPosts.length;
+        const additionalPosts = this.posts
+          .filter((post) => this.selectedCategory === 'all' || post.category === this.selectedCategory)
+          .slice(startIndex, startIndex + this.limit);
+
+        this.filteredPosts = [...this.filteredPosts, ...additionalPosts];
+
+        // Check if there are more posts to load 2nd
+        //this.hasMorePosts = this.filteredPosts.length < this.posts.length;
+        console.log("dsadasdad");
+        console.log(this.posts.filter((post) => post.category === this.selectedCategory).length)
+        console.log(this.filteredPosts.length)
+        console.log(this.posts.length)
+        console.log(this.hasMorePosts)
+        
+        if(this.selectedCategory != 'all'){
+
+          this.hasMorePosts = this.filteredPosts.length < this.posts.filter((post) => post.category === this.selectedCategory).length;
+  
+        }else{
+  
+          this.hasMorePosts = this.filteredPosts.length < this.posts.length;
+  
+        }
+
+        this.isLoading = false; // Hide Loader
+    }, 1000); // Simulate data loading for 1 second
+  }
 
     filterPosts() {
       if (this.selectedCategory === 'all') {
@@ -65,9 +93,25 @@ export class ShowPostComponent implements OnInit {
           .filter((post) => post.category === this.selectedCategory)
           .slice(0, this.limit);
       }
+      console.log(this.filteredPosts.length)
+      console.log(this.posts.length)
+      console.log(this.hasMorePosts)
+      
+      if(this.selectedCategory != 'all'){
 
-      // Check if there are more posts to load 1st
-      this.hasMorePosts = this.filteredPosts.length < this.posts.length;
+        this.hasMorePosts = this.filteredPosts.length < this.posts.filter((post) => post.category === this.selectedCategory).length;
+
+      }else{
+
+        this.hasMorePosts = this.filteredPosts.length < this.posts.length;
+
+      }
+
+      if(this.filteredPosts.length == 0 ){
+
+        this.hasMorePosts = false
+
+      }
     }
 
     // Function to change post category
