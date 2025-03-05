@@ -66,14 +66,22 @@ const signup = async (req, res) => {
 };
 
 const checkRole = async (req, res) => {
-  const { role, id } = req.user;
-
-  if (role === undefined) {
-    return res.status(400).json({ error: "Role not found in token!" });
+  try {
+    const token = req.headers.authorization.split(' ')[1];
+    if (!token) {
+      return res.status(403).json({ error: "No token provided" });
+    }
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    if (!decoded) {
+      return res.status(403).json({ error: "Invalid token" });
+    }
+    const role = decoded.role;
+    const roleName = role === 1 ? "admin" : "user";
+    res.status(200).json({ message: `User role is ${roleName}`, role: roleName });
+  } catch (error) {
+    console.error("Server error:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
-
-  const roleName = role === 1 ? "admin" : "user";
-  res.status(200).json({ message: `User role is ${roleName}`, role: `${roleName}` });
 };
 
 const logout = async (req, res) => {
@@ -87,4 +95,14 @@ const logout = async (req, res) => {
   }
 };
 
-module.exports = { login, signup, checkRole, logout };
+// Add the checkStatus function
+const checkStatus = async (req, res) => {
+  try {
+    res.status(200).json({ isLoggedIn: true });
+  } catch (error) {
+    console.error("Server error:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
+
+module.exports = { login, signup, checkRole, logout, checkStatus };
