@@ -106,10 +106,10 @@ html, body {
 
 /* ---------- Background ---------- */
 body {
-    height: 100vh; 
-    margin: 0;
-    padding: 0;
-    background: url('../../../assets/Background.jpg') center/cover no-repeat;
+    height: 100vh !important; 
+    margin: 0 !important;
+    padding: 0 !important;
+    background: url('../../../assets/Background.jpg') center/cover no-repeat !important;
     color: white;
     background-size: cover;
     background-position: center; 

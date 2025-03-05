@@ -3,7 +3,7 @@
     <div class="topbar">
         <p class="campus-info">สถาบันเทคโนโลยีพระจอมเกล้าเจ้าคุณทหารลาดกระบัง วิทยาเขตชุมพรเขตรอุดมศักดิ์</p>
         <!-- Login System : Show when not logged in -->
-        <button class="login-btn" (click)="login()" *ngIf="!isLoggedIn">
+        <button class="login-btn" routerLink="/login" *ngIf="!isLoggedIn">
             เข้าสู่ระบบ
         </button>
         <!-- Logout System : Visible when logged in-->
@@ -29,11 +29,16 @@
 
         <!-- Navigation -->
         <nav class="main-nav">
+            <!-- Create Post Button: Visible to Admin only -->
+            <button *ngIf="isAdmin" routerLink="/create" class="btn-create-post">
+              <i class="fa-solid fa-plus"></i>
+            </button>
+          
             <!-- Button go back to Home -->
-            <a (click)="goHome()" class="home-icon">
-                <i class="fa-solid fa-home"></i>
+            <a (click)="goHome()" class="btn-home">
+              <i class="fa-solid fa-home"></i>
             </a>
-        </nav>
+          </nav>
     </div>
 </header>
 

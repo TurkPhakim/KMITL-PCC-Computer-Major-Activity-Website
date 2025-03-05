@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Post } from '../models/post'; // Import the Post interface
-import { environment } from '../../environments/environment'; // Environment Variable
+import { environment } from '../../environments/environment.development'; // Environment Variable
 
 @Injectable({
   providedIn: 'root' // PostService injected throughout the app
