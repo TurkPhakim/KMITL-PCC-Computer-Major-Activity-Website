@@ -147,6 +147,10 @@ export class UpPostComponent implements OnInit, AfterViewInit, AfterViewChecked 
     for (let pair of formData.entries()) {
       console.log(`${pair[0]}:`, pair[1]);
     }
+
+    formData.forEach((value, key) => {
+      console.log(key, value);
+    });
   
     this.http.post("http://localhost:3000/upload/activity", formData).subscribe(
       (response) => {

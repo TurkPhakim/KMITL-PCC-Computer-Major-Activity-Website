@@ -17,7 +17,7 @@
         <img *ngIf="post?.coverImage" [src]="post.coverImage" alt="Cover Image" class="cover-image" />
 
         <!-- Post description -->
-        <p class="post-description">{{ post.description }}</p>
+        <p class="post-description" [innerHTML]="post.description"></p>
 
         <!-- External link -->
         <p class="post-external" *ngIf="post.externalLink">

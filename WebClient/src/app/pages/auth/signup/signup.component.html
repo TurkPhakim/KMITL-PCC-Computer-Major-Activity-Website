@@ -7,42 +7,51 @@
     <div class="signup-form">
       <h2>สร้างบัญชี KMITL CE</h2>
       <form [formGroup]="signUpForm" (ngSubmit)="signUp()">
-
         <!-- Username -->
         <div class="input-group">
           <i class="fa-solid fa-user"></i>
           <input type="text" formControlName="username" placeholder="ชื่อผู้ใช้งาน" required />
         </div>
-
+      
         <!-- Email -->
         <div class="input-group">
           <i class="fa-solid fa-envelope"></i>
           <input type="email" formControlName="email" placeholder="อีเมล" required />
         </div>
-
+        <small class="error" *ngIf="signUpForm.get('email')?.invalid && signUpForm.get('email')?.touched">
+          ❌ กรุณากรอกอีเมลที่ถูกต้อง
+        </small>
+      
         <!-- Password -->
         <div class="input-group">
           <i class="fa-solid fa-lock"></i>
           <input type="password" formControlName="password" placeholder="รหัสผ่าน" required />
         </div>
-
+        <small class="error" *ngIf="signUpForm.get('password')?.invalid && signUpForm.get('password')?.touched">
+          ❌ รหัสผ่านต้องมีอย่างน้อย 6 ตัวอักษร
+        </small>
+      
         <!-- Confirm Password -->
         <div class="input-group">
           <i class="fa-solid fa-key"></i>
           <input type="password" formControlName="confirmPassword" placeholder="ยืนยันรหัสผ่าน" required />
         </div>
-
+        <small class="error" *ngIf="signUpForm.get('confirmPassword')?.invalid && signUpForm.get('confirmPassword')?.touched">
+          ❌ กรุณากรอกยืนยันรหัสผ่าน
+        </small>
+      
         <!-- Error Message -->
         <div class="error-message" *ngIf="errorMessage">
           {{ errorMessage }}
         </div>
-
+      
         <!-- Sign Up Button -->
         <button type="submit" class="btn-signup" [disabled]="isLoading || signUpForm.invalid">
           <span *ngIf="isLoading">กำลังสมัครสมาชิก...</span>
           <span *ngIf="!isLoading">ลงทะเบียน</span>
         </button>
       </form>
+      
 
       <span class="signup-check">
         <p class="signup-check">มีบัญชีอยู่แล้ว? <a [routerLink]="'/login'">เข้าสู่ระบบ</a></p>
