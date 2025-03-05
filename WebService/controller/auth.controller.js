@@ -4,13 +4,10 @@ const conn = require("../services/dbconn");
 require("dotenv").config();
 
 const login = async (req, res) => {
-
   const { email, password } = req.body;
 
   try {
-    const [rows] = await conn.query("SELECT * FROM USERS WHERE Email = ?", [
-      email,
-    ]);
+    const [rows] = await conn.query("SELECT * FROM USERS WHERE Email = ?", [email]);
 
     if (rows.length === 0) {
       console.log("User not found!");
@@ -68,4 +65,15 @@ const signup = async (req, res) => {
   }
 };
 
-module.exports = { login, signup };
+const checkRole = async (req, res) => {
+  const { role, id } = req.user;
+
+  if (role === undefined) {
+    return res.status(400).json({ error: "Role not found in token!" });
+  }
+
+  const roleName = role === 1 ? "admin" : "user";
+  res.status(200).json({ message: `User role is ${roleName}`, role: `${roleName}` });
+};
+
+module.exports = { login, signup, checkRole };
