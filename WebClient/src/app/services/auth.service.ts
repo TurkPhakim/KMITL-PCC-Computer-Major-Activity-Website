@@ -35,18 +35,20 @@ export class AuthService {
   // Function to check the user's role
   getUserRole(): Observable<string | null> {
     if (this.useMockAPI) {
-      const role = localStorage.getItem('role') || null;
-      console.log("📢 [MockAPI] Retrieved role:", role);
-      return of(role);
+        const role = localStorage.getItem('role') || null;
+        console.log("📢 [MockAPI] Retrieved role:", role);
+        return of(role);
     }
-    return this.http.get<{ role: string }>(`${this.apiUrl}/role`)
-      .pipe(map(response => {
-        console.log("✅ [Real API] Role received:", response.role);
-        return response.role || null;
-      }),
-        catchError(() => of(null))
-      );
-  }
+    const token = localStorage.getItem('token');
+    const headers = { 'Authorization': `Bearer ${token}` };
+    return this.http.get<{ message: string, role: string }>(`${this.apiUrl}/checkrole`, { headers })
+        .pipe(map(response => {
+            console.log("✅ [Real API] Role received:", response.role);
+            return response.role || null;
+        }),
+            catchError(() => of(null))
+        );
+}
 
   // Retrieve role from localStorage
   private getStoredUserRole(): string | null {
@@ -171,7 +173,12 @@ export class AuthService {
 
   // Log-Out  Function
   logout(): Observable<void> {
-    return this.useMockAPI ? this.mockLogout() : this.realLogout();
+    const token = localStorage.getItem('token');
+    const headers = { 'Authorization': `Bearer ${token}` };
+    return this.http.post<void>(`${this.apiUrl}/logout`, {}, { headers })
+        .pipe(map(() => this.clearSession()),
+            catchError(this.handleError)
+        );
   }
 
   // MockAPI

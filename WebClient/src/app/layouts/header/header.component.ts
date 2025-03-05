@@ -123,23 +123,36 @@ export class HeaderComponent implements OnInit {
     console.log('🚀 Logging in as User...');
 
     this.authService.login('user@example.com', 'user123').subscribe({
-      next: (response) => {
-        console.log('✅ Login Successful:', response);
+        next: (response) => {
+            console.log('✅ Login Successful:', response);
 
-        this.authService.setLoginStatus(true);
-        this.authService.setUserRole(response.role);
+            this.authService.setLoginStatus(true);
 
-        // Header : Update value
-        this.isLoggedIn = true;
-        this.userRole = response.role;
-        this.isAdmin = response.role === 'admin';
+            // Update user role after successful login
+            this.authService.getUserRole().subscribe({
+                next: (role) => {
+                    this.authService.setUserRole(role);
 
-        console.log('🔍 Updated Login Status:', this.isLoggedIn);
-        console.log('🔍 Updated User Role:', this.userRole);
+                    // Header : Update value
+                    this.isLoggedIn = true;
+                    this.userRole = role;
+                    this.isAdmin = role === 'admin';
 
-        this.router.navigate(['/']);
-      },
-      error: (err) => console.error('Login Error:', err)
+                    console.log('🔍 Updated Login Status:', this.isLoggedIn);
+                    console.log('🔍 Updated User Role:', this.userRole);
+
+                    this.router.navigate(['/']);
+                },
+                error: (err) => {
+                    console.error('❌ Failed to retrieve user role:', err);
+                    this.authService.setUserRole(null);
+                    this.isLoggedIn = false;
+                    this.userRole = null;
+                    this.isAdmin = false;
+                }
+            });
+        },
+        error: (err) => console.error('Login Error:', err)
     });
   }
 
@@ -155,18 +168,20 @@ export class HeaderComponent implements OnInit {
   logout() {
     console.log('🚪 Logging out...');
     this.authService.logout().subscribe({
-      next: () => {
-        console.log('✅ Logout successful');
-        this.authService.setLoginStatus(false);
-        this.authService.setUserRole(null);
+        next: () => {
+            console.log('✅ Logout successful!');
+            localStorage.removeItem('token');
+            this.authService.setLoginStatus(false);
+            this.authService.setUserRole(null);
 
-        // Header : Update value
-        this.isLoggedIn = false;
-        this.userRole = null;
-        this.isAdmin = false;
-        this.router.navigate(['/']);
-      },
-      error: (err) => console.error('❌ Logout failed:', err)
+            // Header : Update value
+            this.isLoggedIn = false;
+            this.userRole = null;
+            this.isAdmin = false;
+
+            this.router.navigate(['/']);
+        },
+        error: (err) => console.error('❌ Logout failed:', err)
     });
   }
 }
