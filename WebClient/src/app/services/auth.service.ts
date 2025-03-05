@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
-import { catchError, delay, map } from 'rxjs/operators';
+import { catchError, delay, map, switchMap } from 'rxjs/operators';
 import { environment } from '../../environments/environment.development';
 
 @Injectable({
@@ -26,10 +26,12 @@ export class AuthService {
   // Update login status in real-time
   setLoginStatus(status: boolean) {
     this.isLoggedInSubject.next(status);
+    localStorage.setItem('isLoggedIn', JSON.stringify(status));
   }
 
   setUserRole(role: string | null) {
     this.userRoleSubject.next(role);
+    localStorage.setItem('role', role ?? '');
   }
 
   // Function to check the user's role
@@ -39,11 +41,19 @@ export class AuthService {
       console.log("📢 [MockAPI] Retrieved role:", role);
       return of(role);
     }
-    return this.http.get<{ role: string }>(`${this.apiUrl}/role`)
-      .pipe(map(response => {
-        console.log("✅ [Real API] Role received:", response.role);
-        return response.role || null;
-      }),
+    const token = localStorage.getItem('token');
+    if (!token) {
+      return of(null);
+    }
+    const headers = { 'Authorization': `Bearer ${token}` };
+    console.log('Token:', token); // Log the token
+    console.log('Headers:', headers); // Log the headers
+    return this.http.get<{ message: string, role: string }>(`${this.apiUrl}/checkrole`, { headers })
+      .pipe(
+        map(response => {
+          console.log("✅ [Real API] Role received:", response.role);
+          return response.role || null;
+        }),
         catchError(() => of(null))
       );
   }
@@ -58,8 +68,16 @@ export class AuthService {
     if (this.useMockAPI) {
       return of(!!localStorage.getItem('token'));
     }
-    return this.http.get<{ isLoggedIn: boolean }>(`${this.apiUrl}/status`)
-      .pipe(map(response => response.isLoggedIn),
+    const token = localStorage.getItem('token');
+    if (!token) {
+      return of(false);
+    }
+    const headers = { 'Authorization': `Bearer ${token}` };
+    console.log('Token:', token); // Log the token
+    console.log('Headers:', headers); // Log the headers
+    return this.http.get<{ isLoggedIn: boolean }>(`${this.apiUrl}/status`, { headers })
+      .pipe(
+        map(response => response.isLoggedIn),
         catchError(() => of(false))
       );
   }
@@ -153,19 +171,29 @@ export class AuthService {
 
   // RealAPI
   private realLogin(email: string, password: string): Observable<{ token: string; role: string }> {
-
     console.log(`Shooting to login ${this.apiUrl}/login`);
-    return this.http.post<{ token: string; role: string }>(`${this.apiUrl}/login`, { email, password })
-      .pipe(map(response => {
-        console.log('✅ [Real API] Login Response:', response);
-        localStorage.setItem('token', response.token);
-        localStorage.setItem('role', response.role);
-        this.setLoginStatus(true);
-        this.setUserRole(response.role);
-        console.log("✅ [AuthService] User Logged In -> Role:", response.role);
-        return response;
-      }),
-        catchError(this.handleError)
+    return this.http.post<{ token: string }>(`${this.apiUrl}/login`, { email, password })
+      .pipe(
+        map(response => {
+          console.log('✅ [Real API] Login Response:', response);
+          localStorage.setItem('token', response.token);
+          this.setLoginStatus(true);
+          return response.token;
+        }),
+        catchError(this.handleError),
+        switchMap(token => {
+          const headers = { 'Authorization': `Bearer ${token}` };
+          return this.http.get<{ message: string, role: string }>(`${this.apiUrl}/checkrole`, { headers })
+            .pipe(
+              map(roleResponse => {
+                console.log("✅ [Real API] Role received:", roleResponse.role);
+                localStorage.setItem('role', roleResponse.role);
+                this.setUserRole(roleResponse.role);
+                return { token, role: roleResponse.role };
+              }),
+              catchError(this.handleError)
+            );
+        })
       );
   }
 
@@ -185,10 +213,13 @@ export class AuthService {
     });
   }
 
-  // API
+  // RealAPI
   private realLogout(): Observable<void> {
-    return this.http.post<void>(`${this.apiUrl}/logout`, {})
-      .pipe(map(() => this.clearSession()),
+    const token = localStorage.getItem('token');
+    const headers = { 'Authorization': `Bearer ${token}` };
+    return this.http.post<void>(`${this.apiUrl}/logout`, {}, { headers })
+      .pipe(
+        map(() => this.clearSession()),
         catchError(this.handleError)
       );
   }

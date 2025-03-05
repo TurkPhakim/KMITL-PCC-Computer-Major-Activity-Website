@@ -4,13 +4,10 @@ const conn = require("../services/dbconn");
 require("dotenv").config();
 
 const login = async (req, res) => {
-
   const { email, password } = req.body;
 
   try {
-    const [rows] = await conn.query("SELECT * FROM USERS WHERE Email = ?", [
-      email,
-    ]);
+    const [rows] = await conn.query("SELECT * FROM USERS WHERE Email = ?", [email]);
 
     if (rows.length === 0) {
       console.log("User not found!");
@@ -68,4 +65,44 @@ const signup = async (req, res) => {
   }
 };
 
-module.exports = { login, signup };
+const checkRole = async (req, res) => {
+  try {
+    const token = req.headers.authorization.split(' ')[1];
+    if (!token) {
+      return res.status(403).json({ error: "No token provided" });
+    }
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    if (!decoded) {
+      return res.status(403).json({ error: "Invalid token" });
+    }
+    const role = decoded.role;
+    const roleName = role === 1 ? "admin" : "user";
+    res.status(200).json({ message: `User role is ${roleName}`, role: roleName });
+  } catch (error) {
+    console.error("Server error:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
+
+const logout = async (req, res) => {
+  try {
+    // Perform any necessary cleanup or logging here
+    console.log(`User with ID ${req.user.id} logged out.`);
+    res.status(200).json({ message: "Logout successful!" });
+  } catch (error) {
+    console.error("Server error:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
+
+// Add the checkStatus function
+const checkStatus = async (req, res) => {
+  try {
+    res.status(200).json({ isLoggedIn: true });
+  } catch (error) {
+    console.error("Server error:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
+
+module.exports = { login, signup, checkRole, logout, checkStatus };
