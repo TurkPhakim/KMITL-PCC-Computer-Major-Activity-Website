@@ -8,7 +8,7 @@ const login = async (req, res) => {
   const { email, password } = req.body;
 
   try {
-    const [rows] = await conn.query("SELECT * FROM USERS WHERE email = ?", [
+    const [rows] = await conn.query("SELECT * FROM USERS WHERE Email = ?", [
       email,
     ]);
 
