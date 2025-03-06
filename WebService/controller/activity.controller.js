@@ -48,7 +48,7 @@ async function pinActivityById(req, res) {
 
     // 🛑 Ensure no more responses are sent after this point
     if (!res.headersSent) {
-      return res.status(200).json({ message: "Activity updated successfully" });
+      res.status(200).json({ message: "Activity updated successfully" });
     }
 
   } catch (error) {
@@ -56,7 +56,7 @@ async function pinActivityById(req, res) {
 
     // 🛑 Ensure the error response is not sent if a response was already sent
     if (!res.headersSent) {
-      return res.status(500).json({ error: "Internal Server Error" });
+      res.status(500).json({ error: "Internal Server Error" });
     }
   }
 }
@@ -71,10 +71,14 @@ async function deleteActivityById(req, res) {
       return res.status(404).json({ message: "Deleted Failed" });
     }
     console.log("Delete complete");
-    res.status(200).json({ message: "Activity deleted successfully" });
+    if (!res.headersSent) {
+      return res.status(200).json({ message: "Activity deleted successfully" });
+    }
   } catch (error) {
     console.error("Error deleting activity:", error);
-    res.status(500).json({ error: "Internal Server Error" });
+    if (!res.headersSent) {
+      return res.status(500).json({ error: "Internal Server Error" });
+    }
   }
 }
 

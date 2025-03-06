@@ -195,53 +195,9 @@ export class UpPostComponent implements OnInit, AfterViewInit, AfterViewChecked 
       return;
     }
 
-    if (!this.isEditing && this.mainImage) {
-      formData.append("mainImage", this.mainImage);
-    }
-
     if (this.additionalImages.length > 0) {
       this.additionalImages.forEach((file) => {
         formData.append("additionalImages", file);
-      });
-
-      this.isLoading = true;
-
-      if (this.isEditing && this.postId) {
-        // กรณีเป็นการแก้ไขโพสต์ที่มีอยู่แล้ว
-        this.postService.updatePost(this.postId, formData).subscribe({
-          next: () => {
-            alert("แก้ไขโพสต์สำเร็จ!");
-            this.router.navigate(['/post', this.postId]);
-          },
-          error: (err) => {
-            console.error("เกิดข้อผิดพลาดในการแก้ไขโพสต์:", err);
-            alert(`เกิดข้อผิดพลาดในการแก้ไขโพสต์: ${err.message}`);
-          },
-          complete: () => {
-            this.isLoading = false;
-          }
-        });
-      } else {
-        // กรณีสร้างโพสต์ใหม่
-        this.http.post(`${this.apiBaseUrl}`, formData).subscribe({
-          next: () => {
-            alert("สร้างโพสต์สำเร็จ!");
-            this.router.navigate(['/']);
-          },
-          error: (err) => {
-            console.error("เกิดข้อผิดพลาดในการสร้างโพสต์:", err);
-            alert(`เกิดข้อผิดพลาดในการสร้างโพสต์: ${err.message}`);
-          },
-          complete: () => {
-            this.isLoading = false;
-          }
-        });
-      }
-    }
-
-    if(this.additionalImages?.length) {
-      this.additionalImages.forEach((file: File, index: number) => {
-        formData.append(`additionalImages`, file);
       });
     }
 
@@ -252,16 +208,39 @@ export class UpPostComponent implements OnInit, AfterViewInit, AfterViewChecked 
     formData.forEach((value, key) => {
       console.log(key, value);
     });
-  
-    this.http.post(`${environment.apiBaseUrl}/upload/activity`, formData).subscribe(
-      (response) => {
-        console.log("ส่งข้อมูลสำเร็จ:", response);
-        alert("ส่งข้อมูลสำเร็จ!");
-      },
-      (error) => {
-        console.error("เกิดข้อผิดพลาด:", error);
-        alert(`เกิดข้อผิดพลาดในการส่งข้อมูล: ${error.message}`);
-      }
-    );
+
+    this.isLoading = true;
+
+    if (this.isEditing && this.postId) {
+      // กรณีเป็นการแก้ไขโพสต์ที่มีอยู่แล้ว
+      this.postService.updatePost(this.postId, formData).subscribe({
+        next: () => {
+          alert("แก้ไขโพสต์สำเร็จ!");
+          this.router.navigate(['/post', this.postId]);
+        },
+        error: (err) => {
+          console.error("เกิดข้อผิดพลาดในการแก้ไขโพสต์:", err);
+          alert(`เกิดข้อผิดพลาดในการแก้ไขโพสต์: ${err.message}`);
+        },
+        complete: () => {
+          this.isLoading = false;
+        }
+      });
+    } else {
+      // กรณีสร้างโพสต์ใหม่
+      this.http.post(`${this.apiBaseUrl}`, formData).subscribe({
+        next: () => {
+          alert("สร้างโพสต์สำเร็จ!");
+          this.router.navigate(['/']);
+        },
+        error: (err) => {
+          console.error("เกิดข้อผิดพลาดในการสร้างโพสต์:", err);
+          alert(`เกิดข้อผิดพลาดในการสร้างโพสต์: ${err.message}`);
+        },
+        complete: () => {
+          this.isLoading = false;
+        }
+      });
+    }
   }
 }
