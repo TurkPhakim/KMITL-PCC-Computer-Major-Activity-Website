@@ -112,6 +112,19 @@ const FetchService = {
     }
   },
 
+  pinDataById: async (id) => {
+    try {
+      console.log(`Updating Pin for ID: ${id}`);  // 🛑 Debug: Log before SQL execution
+      const sql = `UPDATE Activity SET Pin = CASE WHEN Pin = 1 THEN 0 ELSE 1 END WHERE ACT_ID = ?`;
+      const [result] = await connection.execute(sql, [id]);
+      console.log(`Update Result:`, result);  // 🛑 Debug: Log SQL result
+      return result;
+    } catch (err) {
+      console.error("Database Error:", err);
+      throw err;
+    }
+  },
+
   deleteDataById: async (tableName1, id) => {
     try {
       const sql = `DELETE FROM ${tableName1} WHERE ACT_ID = ?`;
