@@ -5,6 +5,7 @@ import { provideRouter } from '@angular/router';
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { routes } from './app.routes';
 import { ReactiveFormsModule } from '@angular/forms';
+// import { MatDialogModule } from '@angular/material/dialog';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -13,5 +14,6 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes), // RouterModule
     provideHttpClient(withInterceptorsFromDi()), // HTTP Client
     importProvidersFrom(ReactiveFormsModule)
+    // importProvidersFrom(MatDialogModule) // MatDialog Module
   ]
 };

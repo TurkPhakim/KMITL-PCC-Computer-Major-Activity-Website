@@ -1,10 +1,35 @@
 <div class="post-detail-container">
     <!-- Show Loader -->
-    <div *ngIf="isLoading" class="loading"> Loading posts...</div>
+    <div *ngIf="isLoading" class="loading-post"> Loading posts...</div>
+    <div *ngIf="isDeleting" class="loading-deleting">
+        <p>Deleting post...</p>
+    </div>
+    <div *ngIf="isPinning" class="loading-pinning">
+        <p>Pinning post...</p>
+    </div>
 
     <!-- Display post details -->
     <div *ngIf="!isLoading && post">
-        <button class="btn back-btn" (click)="goBack()">⬅ กลับ</button>
+
+        <div class="post-header">
+            <button class="btn back-btn" (click)="goBack()">⬅ กลับ</button>
+
+            <!-- Post Actions (Admin Only) -->
+            <div class="post-actions" *ngIf="isAdmin">
+                <button class="btn-icon btn-edit" (click)="editPost()" title="แก้ไขโพสต์">
+                    ✏️
+                </button>
+                <button class="btn-icon btn-pin" 
+                        (click)="togglePinPost()" 
+                        [class.pinned]="post.isPinned"
+                        title="ปักหมุดโพสต์">
+                        ⭐
+                </button>
+                <button class="btn-icon btn-delete" (click)="openDeleteDialog()" title="ลบโพสต์">
+                    🗑️
+                </button>
+            </div>
+        </div>
 
         <!-- Post title -->
         <h1 class="post-title">{{ post.title }}</h1>
@@ -21,7 +46,7 @@
 
         <!-- External link -->
         <p class="post-external" *ngIf="post.externalLink">
-            <strong>รูปภาพเพิ่มเติม: </strong>
+            <strong>ลิงค์เพิ่มเติม: </strong>
             <!-- <a [href]="post.externalLink" target="_blank">{{ post.externalLink }}</a> -->
             <a [href]="post.externalLink" target="_blank">🔗 Click Me!</a>
         </p>
@@ -37,4 +62,11 @@
         <button class="btn back-btn" (click)="goBack()">⬅ กลับ</button>
         ❌ No posts found
     </div>
+
+    <!-- ❌ Dialog Popup for delete confirmation ❌ -->
+    <!-- Confirm Dialog Component -->
+    <app-confirm-dialog *ngIf="showDeleteDialog" [message]="'ต้องการลบโพสต์นี้ใช่หรือไม่?'" (confirm)="deletePost()"
+        (cancel)="showDeleteDialog = false">
+    </app-confirm-dialog>
+
 </div>

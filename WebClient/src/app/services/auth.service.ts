@@ -34,6 +34,11 @@ export class AuthService {
     localStorage.setItem('role', role ?? '');
   }
 
+    // ✅ ฟังก์ชันใหม่: ตรวจสอบว่าเป็น Admin หรือไม่
+    isAdmin(): Observable<boolean> {
+      return this.userRole$.pipe(map(role => role === 'admin'));
+    }
+
   // Function to check the user's role
   getUserRole(): Observable<string | null> {
     if (this.useMockAPI) {

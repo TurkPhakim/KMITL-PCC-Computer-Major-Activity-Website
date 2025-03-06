@@ -33,8 +33,7 @@ export class PostService {
             ...post,
             coverImage: this.ensureFullUrl(post.coverImage), // Fix Cover image path
             images: post.images?.map(img => this.ensureFullUrl(img)) || [] // Fix Additional images
-          }))
-        ),
+          }))),
         catchError(this.handleError<Post[]>('getPosts', []))
       );
   }
@@ -53,7 +52,7 @@ export class PostService {
       );
   }
 
-  // Create a new post
+  // Create new post
   createPost(post: Post): Observable<Post> {
     const headers = this.getAuthHeaders();
     return this.http.post<Post>(this.apiBaseUrl, post, { headers })
@@ -74,10 +73,15 @@ export class PostService {
       .pipe(catchError(this.handleError<void>('deletePost')));
   }
 
+
+  // editPost(id: string, data: any): Observable<any> {
+  //   return this.http.put(`${this.apiBaseUrl}/${id}`, data);
+  // }
+
    //  Delete post with confirmation
   deletePostWithConfirmation(id: string): Observable<boolean> {
     return new Observable<boolean>((observer) => {
-      const confirmDelete = window.confirm('คุณต้องการลบโพสต์นี้ใช่หรือไม่?');
+      const confirmDelete = window.confirm('ต้องการลบโพสต์นี้ใช่หรือไม่?');
       if (confirmDelete) {
         this.deletePost(id).subscribe(() => {
           console.log('✅ ลบโพสต์สำเร็จ!');
