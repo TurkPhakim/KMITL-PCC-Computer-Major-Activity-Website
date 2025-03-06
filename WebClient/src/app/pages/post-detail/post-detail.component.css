@@ -2,7 +2,8 @@
 .post-detail-container {
   width: 95%;
   max-width: 1500px;
-  min-height: 60vh; /* Prevent footer from jumping up */
+  min-height: 60vh;
+  /* Prevent footer from jumping up */
   background: var(--site-background);
   font-family: var(--main-font);
   text-align: center;
@@ -12,6 +13,14 @@
   box-shadow: 0 5px 50px rgba(0, 0, 0, 0.5);
 }
 
+.post-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 10px;
+  margin-bottom: 30px;
+}
+
 .back-btn {
   background: var(--primary-color);
   color: var(--text-color);
@@ -19,12 +28,11 @@
   font-weight: bold;
   padding: 12px 20px;
   border: none;
-  border-radius: 25px; 
+  border-radius: 25px;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 20px;
   width: fit-content;
   transition: all 0.3s ease-in-out;
   box-shadow: 0 5px 30px rgba(0, 0, 0, 0.5);
@@ -33,6 +41,86 @@
 .back-btn:hover {
   background: var(--dorpdown-set);
   transform: translateY(-2px);
+}
+
+.post-actions {
+  display: flex;
+  gap: 10px;
+}
+
+/* Action Icon  */
+.btn-icon {
+  background-color: #fdd835;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  font-size: 20px;
+  border: none;
+  border-radius: 40%;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.5);
+}
+
+/* ✏️ Edit-Post Button */
+.btn-edit {
+  background-color: #005abb;
+  color: var(--text-color);
+}
+
+.btn-edit:hover {
+  background-color: #3495fc;
+  transform: scale(1.2);
+}
+
+/* ⭐ Pin-Post Button */
+.btn-pin {
+  background-color: #a1047f;
+  color: var(--text-color);
+  border: none;
+  border-radius: 40%;
+  width: 40px;
+  height: 40px;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.8s ease-in-out, transform 0.2s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.btn-pin.pinned {
+  background-color: #ffca28;
+  box-shadow: 0px 0px 20px rgba(244, 222, 113, 0.9);
+  animation: glowEffect 3s infinite alternate;
+}
+
+/* Glow effect */
+@keyframes glowEffect {
+  from {
+    box-shadow: 0px 0px 10px #ffeb3b;
+  }
+  to {
+    box-shadow: 0px 0px 20px #ffc107;
+  }
+}
+
+.btn-pin:hover {
+  transform: scale(1.2);
+  background-color: #ff9800;
+}
+
+/* 🗑️ Delete-Post Button */
+.btn-delete {
+  background-color: #bd1a2a;
+  color: var(--text-color);
+}
+
+.btn-delete:hover {
+  background-color: #fe5365;
+  transform: scale(1.2);
 }
 
 /* Post title */
@@ -112,7 +200,7 @@
 }
 
 /* Display Loader */
-.loading {
+.loading-post , .loading-deletingy , .loading-pinning {
   text-align: center;
   font-size: 20px;
   color: var(--loader-text-color);

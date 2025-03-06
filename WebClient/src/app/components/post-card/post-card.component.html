@@ -1,4 +1,6 @@
-<a class="post-card" [routerLink]="['/post', post.id]">
+<a class="post-card" [routerLink]="['/post', post.id]" [class.pinned]="post.isPinned">
+   <!-- Pin icon (only for pinned posts -->
+  <span *ngIf="post.isPinned" class="pin-icon">⭐</span>
   <img [src]="post.coverImage" alt="Post Cover" class="post-image">
   <div class="post-info">
     <h3 class="post-title">{{ post.title }}</h3>

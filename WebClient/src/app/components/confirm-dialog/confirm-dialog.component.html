@@ -1,0 +1,24 @@
+<div class="dialog-overlay" (click)="onCancel()">
+  <div class="dialog-box animate-fadeIn" (click)="$event.stopPropagation()">
+    <p class="dialog-message">{{ message }}</p>
+    <div class="dialog-actions">
+      <button class="btn confirm" (click)="onConfirm()">
+        ✅ ยืนยัน
+      </button>
+      <button class="btn cancel" (click)="onCancel()">
+        ❌ ยกเลิก
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- -------------------------------------------------------------------- -->
+<!-- <h2 mat-dialog-title>ต้องการลบใช่หรือไม่?</h2>
+<mat-dialog-content>
+  <p>คุณต้องการลบโพสต์นี้ใช่หรือไม่?</p>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="onCancel()">ยกเลิก</button>
+  <button mat-button color="warn" (click)="onConfirm()">ยืนยัน</button>
+</mat-dialog-actions> -->
+<!-- -------------------------------------------------------------------- -->

@@ -12,5 +12,5 @@ import { Post } from '../../models/post';
 })
 export class PostCardComponent {
   @Input() post!: Post;   // Use Post model instead of multiple input fields
-  @Input() routerLink!: any; // ✅ รับค่า routerLink เพื่อให้สามารถทำงานได้
+  @Input() routerLink!: any; // Accept routerLink
 }

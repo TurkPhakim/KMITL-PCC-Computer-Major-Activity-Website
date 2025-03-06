@@ -54,7 +54,6 @@ export class ShowPostComponent implements OnInit {
 
     loadMorePosts() {
       this.isLoading = true; // Loader Display
-
       setTimeout(() => {
         const startIndex = this.filteredPosts.length;
         const additionalPosts = this.posts
@@ -72,13 +71,9 @@ export class ShowPostComponent implements OnInit {
         console.log(this.hasMorePosts)
         
         if(this.selectedCategory != 'all'){
-
           this.hasMorePosts = this.filteredPosts.length < this.posts.filter((post) => post.category === this.selectedCategory).length;
-  
         }else{
-  
           this.hasMorePosts = this.filteredPosts.length < this.posts.length;
-  
         }
 
         this.isLoading = false; // Hide Loader
@@ -98,19 +93,13 @@ export class ShowPostComponent implements OnInit {
       console.log(this.hasMorePosts)
       
       if(this.selectedCategory != 'all'){
-
         this.hasMorePosts = this.filteredPosts.length < this.posts.filter((post) => post.category === this.selectedCategory).length;
-
       }else{
-
         this.hasMorePosts = this.filteredPosts.length < this.posts.length;
-
       }
 
       if(this.filteredPosts.length == 0 ){
-
         this.hasMorePosts = false
-
       }
     }
 
@@ -124,6 +113,15 @@ export class ShowPostComponent implements OnInit {
       this.filterPosts();
     }
 
+    // Ensure pinned posts appear at the top of the Show-Post page
+    getPosts(): void {
+      const page = 1;
+      const category = this.selectedCategory || 'all';
+   
+      this.postService.getPosts(page, category).subscribe(posts => { 
+          this.posts = posts.sort((a, b) => Number(b.isPinned) - Number(a.isPinned));
+      });
+   }
   }
   //---------------------------------------------------------
 
