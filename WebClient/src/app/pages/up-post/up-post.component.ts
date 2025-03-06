@@ -146,7 +146,7 @@ export class UpPostComponent implements OnInit, AfterViewInit, AfterViewChecked 
   onAdditionalImagesChange(event: Event) {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
-      const filesArray = Array.from(input.files).slice(0, 3); // จำกัด 3 รูป
+      const filesArray = Array.from(input.files).slice(0, 4); // จำกัด 3 รูป
 
       this.ngZone.run(() => {
         setTimeout(() => {
