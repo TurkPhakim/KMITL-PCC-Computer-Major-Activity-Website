@@ -22,7 +22,7 @@ services:
       DB_HOST: mysql
       DB_USER: root
       DB_PASSWORD: password
-      DB_NAME: my_database
+      DB_NAME: Team_Project
     depends_on:
       - mysql
     restart: always
