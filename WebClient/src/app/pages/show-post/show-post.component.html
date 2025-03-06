@@ -18,6 +18,11 @@
     <button class="load-more-btn" *ngIf="hasMorePosts && !isLoading" (click)="loadMorePosts()">Load More</button>
   </div>
 
+  <app-post-detail *ngIf="selectedPost"
+                 [post]="selectedPost"
+                 (postUpdated)="updatePostOrder()">
+  </app-post-detail>
+
   <!-- Show Loader while loading posts -->
   <div *ngIf="isLoading" class="loading">Loading...</div>
 </div>

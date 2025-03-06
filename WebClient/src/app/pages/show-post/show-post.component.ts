@@ -5,11 +5,11 @@ import { RouterModule } from '@angular/router';
 import { PostService } from '../../services/post.service';
 import { PostCardComponent } from '../../components/post-card/post-card.component';
 import { Post } from '../../models/post';
-
+import { PostDetailComponent } from '../post-detail/post-detail.component';
 @Component({
   standalone: true,
   selector: 'app-show-post',
-  imports: [CommonModule, PostCardComponent, FormsModule, RouterModule],
+  imports: [CommonModule, PostCardComponent, PostDetailComponent, FormsModule, RouterModule],
   templateUrl: './show-post.component.html',
   styleUrls: ['./show-post.component.css']
 })
@@ -17,6 +17,7 @@ export class ShowPostComponent implements OnInit {
   //Code Project - Live Data Version
     posts: Post[] = []; // Store post data
     filteredPosts: Post[] = []; // Store filtered posts
+    selectedPost: any = null;
     selectedCategory: string = 'all'; // Default dropdown value
     page: number = 1; // Used for loading more posts
     limit: number = 5; // Number of posts loaded per round
@@ -113,15 +114,20 @@ export class ShowPostComponent implements OnInit {
       this.filterPosts();
     }
 
-    // Ensure pinned posts appear at the top of the Show-Post page
-    getPosts(): void {
-      const page = 1;
-      const category = this.selectedCategory || 'all';
+    updatePostOrder() {
+      this.posts.sort((a, b) => Number(b.isPinned) - Number(a.isPinned));
+      this.filterPosts(); // อัปเดตโพสต์ที่แสดง
+    }
+
+  //   // Ensure pinned posts appear at the top of the Show-Post page
+  //   getPosts(): void {
+  //     const page = 1;
+  //     const category = this.selectedCategory || 'all';
    
-      this.postService.getPosts(page, category).subscribe(posts => { 
-          this.posts = posts.sort((a, b) => Number(b.isPinned) - Number(a.isPinned));
-      });
-   }
+  //     this.postService.getPosts(page, category).subscribe(posts => { 
+  //         this.posts = posts.sort((a, b) => Number(b.isPinned) - Number(a.isPinned));
+  //     });
+  //  }
   }
   //---------------------------------------------------------
 
