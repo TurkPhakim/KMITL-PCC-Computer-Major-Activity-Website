@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,  Input, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PostService } from '../../services/post.service';
 import { AuthService } from '../../services/auth.service';
@@ -16,7 +16,10 @@ import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-
 })
 export class PostDetailComponent implements OnInit {
   // //Code Project - Live Data Version
-  post!: Post; // Store post data
+  @Input() post: any;  
+  @Output() postUpdated = new EventEmitter<void>();
+
+  // post!: Post; // Store post data
   isLoading = false; // Display loading status
   isAdmin = false; // Check-Admin Privileges
   isDeleting = false; // Delete-Post loading status
@@ -90,9 +93,15 @@ export class PostDetailComponent implements OnInit {
   togglePinPost(): void {
     if (!this.post) return;
     this.isPinning = true;
+  
     this.postService.pinPost(this.post.id, !this.post.isPinned).subscribe({
       next: updatedPost => {
-        this.post.isPinned = updatedPost.isPinned;
+        if (updatedPost) {
+          this.post.isPinned = updatedPost.isPinned;
+          this.postUpdated.emit();
+          // this.updatePostOrder(); // อัปเดตลำดับโพสต์
+          console.log("📌 ปักหมุดโพสต์สำเร็จ:", updatedPost);
+        }
       },
       error: err => {
         console.error('❌ Error:', err);
