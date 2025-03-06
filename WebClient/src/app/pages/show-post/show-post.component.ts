@@ -36,7 +36,8 @@ export class ShowPostComponent implements OnInit {
 
       this.postService.getPosts(this.page, this.selectedCategory).subscribe(
         (newPosts: Post[]) => {
-          this.posts = [...this.posts, ...newPosts]; // Add new post to the list
+          this.posts = [...this.posts, ...newPosts]; 
+          this.posts.sort((a, b) => Number(b.isPinned) - Number(a.isPinned));// Add new post to the list
           // If the number of fetched posts is less than the limit, all posts have been loaded
           console.log('Loaded posts:', this.posts);
           this.filterPosts();
