@@ -5,9 +5,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
-import { environment } from '../../../environments/environment.development'; // Environment Variable
+import { environment } from '../../../environments/environment.development';
 import { PostService } from '../../services/post.service';
-// import { Post } from '../../models/post';
 
 @Component({
   selector: 'app-up-post',
@@ -253,8 +252,8 @@ export class UpPostComponent implements OnInit, AfterViewInit, AfterViewChecked 
     formData.forEach((value, key) => {
       console.log(key, value);
     });
-
-    this.http.post(`${this.apiBaseUrl}`, formData).subscribe(
+  
+    this.http.post(`${environment.apiBaseUrl}/upload/activity`, formData).subscribe(
       (response) => {
         console.log("ส่งข้อมูลสำเร็จ:", response);
         alert("ส่งข้อมูลสำเร็จ!");
