@@ -30,7 +30,7 @@ const FetchService = {
             a.DATE_MADE AS date, 
             a.Place AS location, 
             a.Cover_Picture AS coverImage, 
-            a.Pin AS pin,
+            a.Pin AS isPinned,
             a.Advisor AS lecturer,
             t.Type_Name AS category,
             i.Image_Path AS imagePath
@@ -75,7 +75,7 @@ const FetchService = {
             a.DATE_MADE AS date, 
             a.Place AS location, 
             a.Cover_Picture AS coverImage, 
-            a.Pin AS pin,
+            a.Pin AS isPinned,
             a.Advisor AS lecturer,
             t.Type_Name AS category,
             i.Image_Path AS imagePath
