@@ -14,7 +14,7 @@
 
 /* Define the size of the left and right sections */
 .welcome-container {
-  width: 40%;
+  width: 45%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -22,20 +22,20 @@
   background: url("../../../../assets/Background.LogIn.jpg") no-repeat center center;
   background-size: cover;
   color: var(--text-error);
-  padding: 50px;
+  padding: 40px;
   border-radius: 50px 0px 0px 50px;
   position: relative;
   text-align: center;
 }
 
 .signup-container {
-  width: 60%;
+  width: 65%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   background-color: var(--site-background);
-  padding: 60px;
+  padding: 40px;
   border-radius: 0px 50px 50px 0px;
   position: relative;
 }
@@ -45,8 +45,8 @@
   position: absolute;
   align-self: flex-start;
   top: 20px;
-  left: 40px;
-  width: 25%;
+  left: 30px;
+  width: 30%;
 }
 
 .signup-form h2{
@@ -85,25 +85,27 @@ h2 {
   display: flex;
   align-items: center; 
   background: var(--body-color);
-  border-radius: 15px;
-  padding: 15px;
-  margin: 10px 0px;
+  border-radius: 20px;
+  padding: 12px;
+  margin: 20px 0px;
   width: 100%;
+  max-width: 2000px;
 }
 
 .input-group i {
   font-size: 20px;
   margin-right: 12px;
   color: var(--primary-color);
-  flex-shrink: 0; /* ป้องกันไม่ให้ไอคอนหดตัว */
+  flex-shrink: 0;
 }
 
 .input-group input {
-  flex-grow: 1; /* ให้ input ขยายตัว */
+  flex-grow: 1;
+  width: 80%;
   border: none;
   background: none;
   outline: none;
-  font-size: 18px;
+  font-size: 20px;
   padding: 5px;
 }
 
@@ -113,11 +115,9 @@ input-group:hover,
 }
 
 /* Error Text */
-.error-message {
+.error ,.error-message {
   color: var(--text-error);
   font-size: 14px;
-  margin-top: -5px;
-  margin-bottom: 15px;
   text-align: center;
 }
 
