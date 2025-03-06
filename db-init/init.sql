@@ -28,6 +28,7 @@ SET time_zone = "+00:00";
 --
 CREATE DATABASE Team_Project;
 USE Team_Project;
+
 CREATE TABLE `Activity` (
   `ACT_ID` int(11) NOT NULL,
   `ACT_Name` varchar(180) NOT NULL,

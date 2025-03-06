@@ -1,22 +1,15 @@
-# ใช้ Node.js base image แบบ alpine
-FROM node:18-bullseye
-
-# ตั้งค่า working directory
-RUN mkdir -p /usr/src/app/WebClient
-
-WORKDIR /usr/src/app/WebClient
-
-# คัดลอก package.json และ package-lock.json
+# Stage 1: Build Angular App
+FROM node:18 AS build-stage
+WORKDIR /usr/src/app
 COPY package*.json ./
-
 RUN npm install --frozen-lockfile
+COPY . . 
+RUN npm run build --configuration=production
 
-# คัดลอกโค้ดทั้งหมดในโปรเจกต์
-COPY . .
-
-# เปิดพอร์ตสำหรับ Angular
+# Stage 2: Serve with Nginx
+FROM nginx:alpine
+WORKDIR /usr/share/nginx/html  
+COPY --from=build-stage /usr/src/app/dist/front-end /usr/share/nginx/html
 EXPOSE 4200
+CMD ["nginx", "-g", "daemon off;"]
 
-# Start Angular in development mode
-CMD ["npm", "start", "--", "--host", "0.0.0.0"]
- 

@@ -5,6 +5,15 @@ const bodyParser = require("body-parser");
 
 const app = express();
 
+process.env.NODE_ENV = process.env.NODE_ENV || 'production';
+
+console.log(`Running in ${process.env.NODE_ENV} mode`);
+
+if (process.env.NODE_ENV === 'production') {
+  app.set('trust proxy', 1); // Trust Nginx reverse proxy
+}
+
+
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

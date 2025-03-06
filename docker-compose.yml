@@ -5,57 +5,42 @@ services:
       dockerfile: DOCKERFILE
     container_name: frontend-app
     ports:
-      - "4200:4200"
+      - "4200:4200"  # Exposing port 4200 for Angular via Nginx
     depends_on:
       - backend
-    volumes:
-      - ./WebClient:/usr/src/app/WebClient
-      - ./WebService:/usr/src/app/Webservice
+    restart: always
 
   backend:
     build:
-      context: ./WebService # ชี้ไปยังโฟลเดอร์ที่มี Dockerfile ของ backend
+      context: ./WebService
       dockerfile: DOCKERFILE
     container_name: backend-app
     ports:
-      - "3000:3000"
+      - "3000:3000"  # Backend API exposed on port 3000
     environment:
+      NODE_ENV: production
       DB_HOST: mysql
       DB_USER: root
       DB_PASSWORD: password
       DB_NAME: my_database
     depends_on:
       - mysql
-    command: ["npm", "run", "dev"]
-    volumes:
-      - ./WebService:/usr/src/app/Webservice
-      - ./WebClient:/usr/src/app/WebClient
+    restart: always
 
   mysql:
-    image: mysql:8.0 # จะใช้ version อะไร
+    image: mysql:8.0
     container_name: mysql-db
     ports:
       - "3306:3306"
     environment:
       MYSQL_ROOT_PASSWORD: password
-      MYSQL_DATABASE: my_database
+      MYSQL_DATABASE: Team_Project
       MYSQL_USER: Test
       MYSQL_PASSWORD: Password
     volumes:
       - mysql-data:/var/lib/mysql
       - ./db-init:/docker-entrypoint-initdb.d
-
-  phpmyadmin:
-    # อาจจะใช้ prisma 
-    image: phpmyadmin:latest
-    container_name: phpmyadmin
-    depends_on:
-      - mysql
-    environment:
-      PMA_HOST: mysql
-      PMA_PORT: 3306
-    ports:
-      - "8080:80"
+    restart: always
 
 volumes:
-  mysql-data:  
+  mysql-data:

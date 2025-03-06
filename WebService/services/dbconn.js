@@ -7,7 +7,7 @@ const dbname = process.env.dbname;
 
 // XAMPP
 const pool = mysql.createPool({
-    host: "mysql",
+    host: "mysql-db",
     user: dbuser,
     password: dbpassword,
     database: dbname,
