@@ -17,7 +17,7 @@ import { PostService } from '../../services/post.service';
   styleUrls: ['./up-post.component.css']
 })
 export class UpPostComponent implements OnInit, AfterViewInit, AfterViewChecked {
-
+  
   private apiBaseUrl = `${environment.apiBaseUrl}/upload/activity`; // Environment API URL
 
   //(`${this.apiBaseUrl}/logout`,
@@ -95,8 +95,6 @@ export class UpPostComponent implements OnInit, AfterViewInit, AfterViewChecked 
     if (!this.postId) return;
     this.isLoading = true;
 
-
-
     // ดึงข้อมูลโพสต์จาก postService.getPostById(postId)
     this.postService.getPostById(this.postId).subscribe({
       next: (post) => {
@@ -109,22 +107,7 @@ export class UpPostComponent implements OnInit, AfterViewInit, AfterViewChecked 
           eventDate: post.date
         });
 
-        if (post.coverImage) {
-          this.imagePreviewUrl = post.coverImage;
-          this.fetchImageAsFile(post.coverImage).then((file) => {
-            this.mainImage = file;
-          });
-        }
-
-        if (post.additionalImages && post.additionalImages.length > 0) {
-          this.additionalImages = [];
-          post.additionalImages.forEach((imgUrl: string) => {
-            this.fetchImageAsFile(imgUrl).then((file) => {
-              this.additionalImages.push(file);
-            });
-          });
-        }
-
+        this.imagePreviewUrl = post.coverImage || '';
         this.isLoading = false;
       },
       error: (err) => {
@@ -132,12 +115,6 @@ export class UpPostComponent implements OnInit, AfterViewInit, AfterViewChecked 
         this.isLoading = false;
       }
     });
-  }
-
-  async fetchImageAsFile(imageUrl: string): Promise<File> {
-    const response = await fetch(imageUrl);
-    const blob = await response.blob();
-    return new File([blob], "image.jpg", { type: blob.type });
   }
 
   // ฟังก์ชันตรวจจับการเลื่อนหน้าจอ
@@ -263,7 +240,7 @@ export class UpPostComponent implements OnInit, AfterViewInit, AfterViewChecked 
       }
     }
 
-    if (this.additionalImages?.length) {
+    if(this.additionalImages?.length) {
       this.additionalImages.forEach((file: File, index: number) => {
         formData.append(`additionalImages`, file);
       });
