@@ -67,8 +67,15 @@ export class PostService {
   }
 
   // Delete post
-  deletePost(id: string): Observable<void> {
-    const headers = this.getAuthHeaders();
+  deletePost(id: string): Observable<void | null> {
+
+    const token = localStorage.getItem('token');
+    if (!token) {
+      return of(null);
+    }
+    const headers = { 'Authorization': `Bearer ${token}` };
+
+    //const headers = this.getAuthHeaders();
     return this.http.delete<void>(`${this.apiBaseUrl}/${id}`, { headers })
       .pipe(catchError(this.handleError<void>('deletePost')));
   }
@@ -97,8 +104,18 @@ export class PostService {
 
   // Pin/Unpin post
   pinPost(id: string, isPinned: boolean): Observable<Post> {
-    const headers = this.getAuthHeaders();
-    return this.http.patch<Post>(`${this.apiBaseUrl}/${id}/pin`, { isPinned }, { headers })
+
+    const token = localStorage.getItem('token');
+    
+    if (!token) {
+        console.error("❌ No token found in localStorage!");
+        return throwError(() => new Error("Unauthorized: No token found!"));
+    }
+
+    const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
+
+    //const headers = this.getAuthHeaders();
+    return this.http.patch<Post>(`${this.apiBaseUrl}/Pin/${id}`, { isPinned }, { headers })
       .pipe(
         map(response => {
           console.log(`📌 ${isPinned ? 'ปักหมุด' : 'ยกเลิกปักหมุด'} โพสต์สำเร็จ`);

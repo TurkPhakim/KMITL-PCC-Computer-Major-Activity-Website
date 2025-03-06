@@ -27,13 +27,48 @@ async function getActivityById(req, res) {
   }
 }
 
+async function pinActivityById(req, res) {
+  try {
+    const { id } = req.params;
+    const result = await FetchService.pinDataById(id);
+
+    // Ensure result exists and contains affectedRows
+    if (!result || typeof result.affectedRows === "undefined") {
+      console.log("Update failed - No valid result");
+      return res.status(500).json({ error: "Database error - No update performed" });
+    }
+
+    // If no rows were affected, return 404
+    if (result.affectedRows === 0) {
+      console.log("Update failed - No rows affected");
+      return res.status(404).json({ message: "Update Not successful" });
+    }
+
+    console.log("Update complete");
+
+    // 🛑 Ensure no more responses are sent after this point
+    if (!res.headersSent) {
+      return res.status(200).json({ message: "Activity updated successfully" });
+    }
+
+  } catch (error) {
+    console.error("Error updating activity:", error);
+
+    // 🛑 Ensure the error response is not sent if a response was already sent
+    if (!res.headersSent) {
+      return res.status(500).json({ error: "Internal Server Error" });
+    }
+  }
+}
+
+
 async function deleteActivityById(req, res) {
   try {
     const { id } = req.params;
     const result = await FetchService.deleteDataById("Activity", id);
 
-    if (result.deletedCount === 0) {
-      return res.status(404).json({ message: "Activity not found" });
+    if (result.affectedRows === 0) {
+      return res.status(404).json({ message: "Deleted Failed" });
     }
     console.log("Delete complete");
     res.status(200).json({ message: "Activity deleted successfully" });
@@ -43,4 +78,4 @@ async function deleteActivityById(req, res) {
   }
 }
 
-module.exports = { getAllActivities, getActivityById, deleteActivityById };
+module.exports = { getAllActivities, getActivityById, deleteActivityById, pinActivityById };
