@@ -75,6 +75,11 @@
   transform: scale(1.2);
 }
 
+/* ✏️ HIDE Edit-Post Button */
+.hidden {
+  display: none;
+}
+
 /* ⭐ Pin-Post Button */
 .btn-pin {
   background-color: #a1047f;
