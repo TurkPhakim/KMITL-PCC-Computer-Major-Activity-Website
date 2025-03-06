@@ -6,11 +6,12 @@ function extractExternalLink(description) {
   let externalLink = null;
   let updatedDescription = description;
   if (match) {
-    externalLink = match[1]; // Extract the link (href)
-    updatedDescription = description.replace(match[0], "").trim(); // Remove the <a> tag but keep the rest
+      externalLink = match[1]; // Extract the first hyperlink (href)
+      updatedDescription = description.replace(match[0], "").trim(); // Remove only the first <a> tag
   }
   return { externalLink, updatedDescription };
 }
+
 
 const formatDate = (dateString) => {
   const date = new Date(dateString);
