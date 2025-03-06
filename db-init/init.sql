@@ -46,24 +46,26 @@ CREATE TABLE `Activity` (
 --
 
 INSERT INTO `Activity` (`ACT_ID`, `ACT_Name`, `ACT_Desc`, `DATE_MADE`, `Place`, `Cover_Picture`, `Pin`, `TYPE_ID`,`Advisor`) VALUES
-(1, 'นำเสนอการฝึกสหกิจศึกษา', 'การนำเสนอผลงานสหกิจศึกษา ของนักศึกษาสาขาวิศวกรรมคอมพิวเตอร์ ชั้นปีที่ 4 หลังจากไปฝึกประสบการณ์วิชาชีพที่สถานประกอบการ เป็นเวลา 6 เดือน', '2021-12-24', 'สหกิจศึกษา', 'uploads/cover1.jpg', 0, 1,'อ.ดร.รัตติกร  สมบัติแก้ว'),
-(2, 'แนะแนวการเรียนต่อให้กับน้องๆ ที่โรงเรียนสวนศรีวิทยา ', 'สถาบันเทคโนโลยีพระจอมเกล้าเจ้าคุณทหารลาดกระบังได้จัดแนะแนวการเรียนต่อให้กับน้องๆ โรงเรียนสวนศรีวิทยา แนะนำหลักสูตรของสถาบันในแต่ละสาขา แผนการเรียนต่อ', '2022-09-01', 'โรงเรียนสวนศรีวิทยา', 'uploads/cover2.jpg', 0, 1,'ไม่มีอาจารย์ที่ปรึกษา'),
-(3, 'ค่ายฝึกประสบการณ์', 'ค่ายฝึกประสบการณ์และอาจารย์พี่เลี้ง ณ สจล.ชุมพร ซึ่งช่วงเช้าเป็นการเข้าอบรมเกี่ยวกับ Computer Network โดยอาจารย์อรรถศาสตร์ นาคเถวัญ หัวข้อหลักๆเบื้องต้น คือ Network Topology, Cables Connectors, Config IP Address, Wireless, Switch Router', '2022-10-26', 'อาคาร B', 'uploads/cover3.jpg', 0, 1,'อ.อรรถศาสตร์ นาคเถวัญ'),
-(4, 'Pre Engineering Camp', 'ค่ายเตรียมวิศวกรรมศาสตร์พระจอมเกล้าลาดกระบังชุมพรที่มีน้องๆ มัธยมศึกษาปีที่ 6 จากโรงเรียนมัธยม', '2023-08-17', 'สถาบันเทคโนโลยีพระจอมเกล้าเจ้าคุณทหารลาดกระบัง', 'uploads/cover4.jpg', 0, 1,'ไม่มีอาจารย์ที่ปรึกษา'),
-(5, 'พี่ ๆ ปี 3 สอนน้อง ๆ ปี 1 เขียนโปรแกรมคอมพิวเตอร์','กิจกรรมดี ๆ จากสาขาวิศวกรรมคอมพิวเตอร์ พี่ ๆ ปี 3 สอนน้อง ๆ ปี 1 เขียนโปรแกรมคอมพิวเตอร์.', '2023-09-11', 'อาคาร B', 'uploads/cover5.jpg', 0, 1,'อ.นภัสรพี สิทธิวัจน์'),
-(6, 'แนะแนวการฝึกงานกับ บริษัท ฟรีวิลล์ โซลูชั่นส์ จำกัด ', 'สาขาวิศวกรรมคอมพิวเตอร์ ขอขอบคุณ บริษัท ฟรีวิลล์ โซลูชั่นส์ จำกัด ที่มาแนะแนวการฝึกงานกับ บริษัท ฟรีวิลล์ โซลูชั่นส์ จำกัด ให้แก่นักศึกษาชั้นปีที่ 2 และ 3 เพื่อเตรียมความพร้อมก่อนการไปฝึกงาน', '2023-09-27', 'อาคาร E', 'uploads/cover6.jpg', 0, 1,'อ.อรรถศาสตร์ นาคเทวัญ'),
-(7, 'อบรมการใช้งานเครื่องมือวัดทางไฟฟ้า', 'ขอขอบคุณ บริษัท ไทร์เนอร์ยี่ อินสทรูเม้นท์ จำกัด ที่มาอบรมการใช้งานเครื่องมือวัดทางไฟฟ้าให้กับน้องๆนักศึกษาชั้นปีที่ 1 สาขาวิชาวิศวกรรมคอมพิวเตอร์', '2023-10-11', 'อาคาร E', 'uploads/cover7.jpg', 0, 1,'ไม่มีอาจารย์ที่ปรึกษา'),
-(8, 'นำเสนอโครงงาน รายวิชา COMPUTER HARDWARE DESIGN ของพี่ๆ ปี3 ', 'การนำเสนอโครงงาน รายวิชา COMPUTER HARDWARE DESIGN ของพี่ๆ ปี3 สาขาวิศวกรรมคอมพิวเตอร์ บอกเลยมีแต่ชิ้นงานน่าสนใจ https://photos.app.goo.gl/vf2FhvqF7bcNXJi2A', '2023-11-10', 'ลานวัฒนธรรม', 'uploads/cover8.jpg', 0, 1,'อ.ว่าที่ ร.ต.ศิลา  ศิริมาสกุล'),
-(9, 'Byenior ITE', 'งานเลี้ยงส่งท้ายรุ่นพี่ ITE มีกิจกรรมสนุกสนานมากมายให้เข้าร่วม จับฉลากแจกรางวัล เกมพื้นบ้าน นั่งฟังเพลงชิวๆสบายๆ https://photos.app.goo.gl/RxZrGoRLe4nJfJGE6', '2024-04-01', 'หาดพระจอม', 'uploads/cover9.jpg', 0, 1,'ไม่มีอาจารย์ที่ปรึกษา'),
-(10, 'ค่ายวิศวกรรมศาสตร์ ลาดกระบังชุมพร ', 'ค่ายเตรียมวิศวกรรมศาสตร์พระจอมเกล้าลาดกระบังชุมพรที่มีน้องๆ มัธยมศึกษาปีที่ 6 จากโรงเรียนมัธยมกิจกรรมดังกล่าว นำทีมโดย ผศ.ดร.ณัฐพงศ์ รัตนเดช และคณาจารย์ประจำภาควิชาวิศวกรรมศาสตร์ และทีมพี่ๆ นักศึกษาวิศวกรรมศาสตร์ https://photos.app.goo.gl/X5UCLEMSa7gnP2BU8', '2024-08-15', 'สถาบันเทคโนโลยีพระจอมเกล้าเจ้าคุณทหารลาดกระบัง', 'uploads/cover10.jpg', 0, 1,'ไม่มีอาจารย์ที่ปรึกษา'),
-(11, 'แลกเปลี่ยนประสบการณ์ศึกษาดูงาน หน่วยงาน สจล. กทม. และบริษัทเอกชน จากพี่ปี 3 ให้น้องปี 2 เเละน้องปี 1 ', 'การนำเสนอผลจากการศึกษาดูงาน ของนักศึกษาสาขาวิศวกรรมคอมพิวเตอร์ ชั้นปีที่ 4 หลังจากไปฝึกประสบการณ์วิชาชีพที่สถานประกอบการ เป็นเวลา 3 เดือนแนะนำแนวทางการฝีกงานให้กับน้องๆชั้นปีที่ 2 และ 1 https://photos.app.goo.gl/C4PyEVwJY25TmetV8', '2024-09-21', 'อาคาร E', 'uploads/cover11.jpg', 0, 1,'อ.ดร.รัตติกร  สมบัติแก้ว'),
-(12, 'ศึกษาดูงาน หน่วยงาน สจล. กทม. และบริษัทเอกชน ของปี3', 'ศึกษาดูงานและแลกเปลี่ยนประสบการณ์ เรียนรู้สิ่งใหม่ๆ จาก สจล. กทม. https://photos.app.goo.gl/5SNdhKbqXvsdQGzc8 ', '2024-09-03', 'อาคาร E', 'uploads/cover12.jpg', 0, 1,'ไม่มีอาจารย์ที่ปรึกษา'),
-(13, 'การนำเสนอโครงงาน ของสาขาคอมพิวเตอร์ ', 'นำเสนอโครงงานของนักศึกษาสาขาวิศวกรรมคอมพิวเตอร์ชั้นปีที่ 3 และ 1" https://photos.app.goo.gl/AvuzQpZgqmH6yMjf7', '2024-10-08', 'อาคาร E', 'uploads/cover13.jpg', 0, 1,'อ.ว่าที่ ร.ต.ศิลา  ศิริมาสกุล'),
-(14, 'อบรมเครือข่ายคอมพิวเตอร์', 'อบรมเครือข่ายคอมพิวเตอร์ และการวางระบบสำหรับ Server https://photos.app.goo.gl/BwuF7EJSWkNCc94J9', '2024-11-20', 'อาคาร B', 'uploads/cover15.jpg', 0, 1,'อ.อรรถศาสตร์ นาคเทวัญ'),
-(15, 'อบรมชินนสาสมาธิของนักศึกษาชั้นปีที่ 4', 'อบรมชินนสาสมาธิของนักศึกษาชั้นปีที่ 4 สาขาวิศวกรรมคอมพิวเตอร์ โดยสถาบันพลังจิตตานุภาพ คณะอนุกรรมการหลักสูตรสมาธิในอุดมศึกษา https://photos.app.goo.gl/XWS1pKmXXybj17tW9', '2024-11-30', 'อาคาร E', 'uploads/cover16.jpg', 0, 1,'อ.ดร.รัตติกร  สมบัติแก้ว'),
-(16, 'Open house ลาดกระบังชุมพร', 'เตรียมตัวให้พร้อมแล้วพบกับ Open House สจล.วิทยาเขตชุมพรเขตรอุดมศักดิ์ จังหวัดชุมพรเปิดบ้าน ลาดกระบังชุมพร เปิดหมด ไม่มีกั๊ก เปิดกันแบบหมดเปลือก ให้น้องได้ดูสาขาที่ใช่ เลือกหลักสูตรที่ชอบในวันที่ 12 กุมภาพันธ์ 2567 ณ ดินแดนลาดกระบังชุมพร ไม่ว่าจะรุ่นเล็ก รุ่นใหญ่ รุ่นไหนเราก็พร้อมรับ ไม่ว่าจะเป็นสายวิทย์ สายศิลป์ สายเทคนิค พาณิชย์ มากันได้เลย เราเปิดบ้านรอแล้ว https://photos.app.goo.gl/cYLVYzRwp6k3ZaDz6', '2024-12-13', 'อาคาร E', 'uploads/cover17.jpg', 0, 1,'ไม่มีอาจารย์ที่ปรึกษา'),
-(17, 'การนำเสนอโครงงานสหกิจศึกษา ของพี่ ๆ ชั้นปีที่ 4', 'หลักสูตรวิศวกรรมคอมพิวเตอร์ได้จัดให้มีกิจกรรม \"การนำเสนอโครงงานสหกิจศึกษา\" ของพี่ ๆ ชั้นปีที่ 4 หลังจากไปทำสหกิจศึกษา ณ สถานประกอบการ ตลอดภาคการศึกษาที่ 1/2567 บรรยากาศการนำเสนอเป็นไปแบบเข้มข้นปนเสียงฮา น้อง ๆ ได้รับการถ่ายทอดประสบการณ์เหมือนกับได้ไปฝึกงานเอง สร้างแรงจูงใจให้น้อง ๆ ในการออกไปฝึกงานกันอย่างถ้วนหน้า', '2024-12-18', 'อาคาร E', 'uploads/cover18.jpg', 0, 1,'อ.ดร.รัตติกร  สมบัติแก้ว'),
-(18, 'แลกเปลี่ยนประสบการณ์ฝึกงานและสหกิจศึกษา โดยพี่ ๆ ชั้นปีที่ 4', 'หลักสูตรวิศวกรรมคอมพิวเตอร์ได้จัดกิจกรรม “แลกเปลี่ยนประสบการณ์ฝึกงานและสหกิจศึกษา” โดยพี่ ๆ ชั้นปีที่ 4 ได้ร่วมแบ่งปันประสบการณ์หลังจากการฝึกงานและสหกิจศึกษาในสถานประกอบการต่าง ๆ ซึ่งได้บรรยายถึงสิ่งที่เรียนรู้ รวมถึงแนวทางในการเตรียมตัวสำหรับการฝึกงานและสหกิจศึกษา เพื่อให้น้อง ๆ มีความพร้อมและมั่นใจยิ่งขึ้น กิจกรรมยังมีช่วงถามตอบกับรุ่นพี่ พร้อมของรางวัลสร้างบรรยากาศที่สนุกสนานและผ่อนคลาย https://photos.app.goo.gl/NoC92Nvtu91DDrbH6', '2025-01-12', 'กรุงเทพ', 'uploads/cover19.jpg', 0, 1,'อ.ดร.รัตติกร  สมบัติแก้ว');
+(1, 'นำเสนอการฝึกสหกิจศึกษา', '<h2 class=\"ql-align-center\">การนำเสนอผลงานสหกิจศึกษา&nbsp;ของนักศึกษาสาขาวิศวกรรมคอมพิวเตอร์&nbsp;ชั้นปีที่&nbsp;4&nbsp;หลังจากไปฝึกประสบการณ์วิชาชีพที่สถานประกอบการ&nbsp;เป็นเวลา&nbsp;6&nbsp;เดือน</h2><p></p>', '2021-12-24', 'สหกิจศึกษา', '/cover/coverImage1741287599231.jpg', 0, 1, 'อ.ดร.รัตติกร  สมบัติแก้ว'),
+(2, 'แนะแนวการเรียนต่อให้กับน้องๆ ที่โรงเรียนสวนศรีวิทยา', '<h2 class=\"ql-align-center\">สถาบันเทคโนโลยีพระจอมเกล้าเจ้าคุณทหารลาดกระบังได้จัดแนะแนวการเรียนต่อให้กับน้องๆ&nbsp;โรงเรียนสวนศรีวิทยา&nbsp;แนะนำหลักสูตรของสถาบันในแต่ละสาขา&nbsp;แผนการเรียนต่อ</h2>', '2022-09-01', 'โรงเรียนสวนศรีวิทยา', '/cover/coverImage1741287706792.jpg', 0, 1, 'ไม่มีอาจารย์ที่ปรึกษา'),
+(3, 'ค่ายฝึกประสบการณ์', '<h2>ค่ายฝึกประสบการณ์และอาจารย์พี่เลี้ง&nbsp;ณ&nbsp;สจล.ชุมพร&nbsp;ซึ่งช่วงเช้าเป็นการเข้าอบรมเกี่ยวกับ&nbsp;Computer&nbsp;Network&nbsp;โดยอาจารย์อรรถศาสตร์&nbsp;นาคเถวัญ&nbsp;หัวข้อหลักๆเบื้องต้น&nbsp;คือ&nbsp;Network&nbsp;Topology,&nbsp;Cables&nbsp;Connectors,&nbsp;Config&nbsp;IP&nbsp;Address,&nbsp;Wireless,&nbsp;Switch&nbsp;Router</h2>', '2022-10-26', 'อาคาร B', '/cover/coverImage1741287812082.jpg', 0, 1, 'อ.อรรถศาสตร์ นาคเถวัญ'),
+(4, 'Pre Engineering Camp', '<h2>ค่ายเตรียมวิศวกรรมศาสตร์พระจอมเกล้าลาดกระบังชุมพรที่มีน้องๆ&nbsp;มัธยมศึกษาปีที่&nbsp;6&nbsp;จากโรงเรียนมัธยม</h2>', '2023-08-17', 'สถาบันเทคโนโลยีพระจอมเกล้าเจ้าคุณทหารลาดกระบัง', '/cover/coverImage1741287946513.jpg', 0, 1, 'ไม่มีอาจารย์ที่ปรึกษา'),
+(5, 'พี่ ๆ ปี 3 สอนน้อง ๆ ปี 1 เขียนโปรแกรมคอมพิวเตอร์', '<h1>กิจกรรมดี&nbsp;ๆ&nbsp;จากสาขาวิศวกรรมคอมพิวเตอร์&nbsp;พี่&nbsp;ๆ&nbsp;ปี&nbsp;3&nbsp;สอนน้อง&nbsp;ๆ&nbsp;ปี&nbsp;1&nbsp;เขียนโปรแกรมคอมพิวเตอร์.</h1>', '2023-09-11', 'อาคาร B', '/cover/coverImage1741288026007.jpg', 0, 1, 'อ.นภัสรพี สิทธิวัจน์'),
+(6, 'แนะแนวการฝึกงานกับ บริษัท ฟรีวิลล์ โซลูชั่นส์ จำกัด', '<h2>สาขาวิศวกรรมคอมพิวเตอร์&nbsp;ขอขอบคุณ&nbsp;บริษัท&nbsp;ฟรีวิลล์&nbsp;โซลูชั่นส์&nbsp;จำกัด&nbsp;ที่มาแนะแนวการฝึกงานกับ&nbsp;บริษัท&nbsp;ฟรีวิลล์&nbsp;โซลูชั่นส์&nbsp;จำกัด&nbsp;ให้แก่นักศึกษาชั้นปีที่&nbsp;2&nbsp;และ&nbsp;3&nbsp;เพื่อเตรียมความพร้อมก่อนการไปฝึกงาน</h2>', '2023-09-27', 'อาคาร E', '/cover/coverImage1741288100483.jpg', 0, 1, 'อ.อรรถศาสตร์ นาคเทวัญ'),
+(7, 'อบรมการใช้งานเครื่องมือวัดทางไฟฟ้า', '<h2>ขอขอบคุณ&nbsp;บริษัท&nbsp;ไทร์เนอร์ยี่&nbsp;อินสทรูเม้นท์&nbsp;จำกัด&nbsp;ที่มาอบรมการใช้งานเครื่องมือวัดทางไฟฟ้าให้กับน้องๆนักศึกษาชั้นปีที่&nbsp;1&nbsp;สาขาวิชาวิศวกรรมคอมพิวเตอร์</h2>', '2023-10-11', 'อาคาร E', '/cover/coverImage1741288184864.jpg', 0, 1, 'ไม่มีอาจารย์ที่ปรึกษา'),
+(8, 'นำเสนอโครงงาน รายวิชา COMPUTER HARDWARE DESIGN ของพี่ๆ ปี3', '<h2 class=\"ql-align-center\">การนำเสนอโครงงาน&nbsp;รายวิชา&nbsp;COMPUTER&nbsp;HARDWARE&nbsp;DESIGN&nbsp;ของพี่ๆ&nbsp;ปี3&nbsp;สาขาวิศวกรรมคอมพิวเตอร์&nbsp;บอกเลยมีแต่ชิ้นงานน่าสนใจ&nbsp;</h2><p></p><p><a href=\"https://photos.app.goo.gl/vf2FhvqF7bcNXJi2A\" rel=\"noopener noreferrer\" target=\"_blank\">https://photos.app.goo.gl/vf2FhvqF7bcNXJi2A</a></p>', '2023-11-10', 'ลานวัฒนธรรม', '/cover/coverImage1741288432396.jpg', 0, 1, 'อ.ว่าที่ ร.ต.ศิลา  ศิริมาสกุล'),
+(9, 'Byenior ITE', '<h1>งานเลี้ยงส่งท้ายรุ่นพี่&nbsp;ITE&nbsp;มีกิจกรรมสนุกสนานมากมายให้เข้าร่วม&nbsp;จับฉลากแจกรางวัล&nbsp;เกมพื้นบ้าน&nbsp;นั่งฟังเพลงชิวๆสบายๆ</h1><p><a href=\"https://photos.app.goo.gl/RxZrGoRLe4nJfJGE6\" rel=\"noopener noreferrer\" target=\"_blank\">https://photos.app.goo.gl/RxZrGoRLe4nJfJGE6</a></p>', '2024-04-01', 'หาดพระจอม', '/cover/coverImage1741288675053.jpg', 0, 1, 'ไม่มีอาจารย์ที่ปรึกษา'),
+(10, 'ค่ายวิศวกรรมศาสตร์ ลาดกระบังชุมพร', '<h2>ค่ายเตรียมวิศวกรรมศาสตร์พระจอมเกล้าลาดกระบังชุมพรที่มีน้องๆ&nbsp;มัธยมศึกษาปีที่&nbsp;6&nbsp;จากโรงเรียนมัธยมกิจกรรมดังกล่าว&nbsp;นำทีมโดย&nbsp;ผศ.ดร.ณัฐพงศ์&nbsp;รัตนเดช&nbsp;และคณาจารย์ประจำภาควิชาวิศวกรรมศาสตร์&nbsp;และทีมพี่ๆ&nbsp;นักศึกษาวิศวกรรมศาสตร์&nbsp;</h2><p><a href=\"https://photos.app.goo.gl/X5UCLEMSa7gnP2BU8\" rel=\"noopener noreferrer\" target=\"_blank\">https://photos.app.goo.gl/X5UCLEMSa7gnP2BU8</a></p>', '2024-08-15', 'สถาบันเทคโนโลยีพระจอมเกล้าเจ้าคุณทหารลาดกระบัง', '/cover/coverImage1741288804200.jpg', 0, 1, 'ไม่มีอาจารย์ที่ปรึกษา'),
+(11, 'แลกเปลี่ยนประสบการณ์ศึกษาดูงาน หน่วยงาน สจล. กทม. และบริษัทเอกชน จากพี่ปี 3 ให้น้องปี 2 เเละน้องปี 1', '<h2>การนำเสนอผลจากการศึกษาดูงาน&nbsp;ของนักศึกษาสาขาวิศวกรรมคอมพิวเตอร์&nbsp;ชั้นปีที่&nbsp;4&nbsp;หลังจากไปฝึกประสบการณ์วิชาชีพที่สถานประกอบการ&nbsp;เป็นเวลา&nbsp;3&nbsp;เดือนแนะนำแนวทางการฝีกงานให้กับน้องๆชั้นปีที่&nbsp;2&nbsp;และ&nbsp;1&nbsp;</h2><p></p><p><a href=\"https://photos.app.goo.gl/C4PyEVwJY25TmetV8\" rel=\"noopener noreferrer\" target=\"_blank\">https://photos.app.goo.gl/C4PyEVwJY25TmetV8</a></p>', '2024-09-21', 'อาคาร E', '/cover/coverImage1741288932730.jpg', 0, 1, 'อ.ดร.รัตติกร  สมบัติแก้ว'),
+(12, 'ศึกษาดูงาน หน่วยงาน สจล. กทม. และบริษัทเอกชน ของปี3', '<h2>ศึกษาดูงานและแลกเปลี่ยนประสบการณ์&nbsp;เรียนรู้สิ่งใหม่ๆ&nbsp;จาก&nbsp;สจล.&nbsp;กทม.&nbsp;</h2><p></p><p><a href=\"https://photos.app.goo.gl/5SNdhKbqXvsdQGzc8\" rel=\"noopener noreferrer\" target=\"_blank\">https://photos.app.goo.gl/5SNdhKbqXvsdQGzc8</a></p>', '2024-09-03', 'อาคาร E', '/cover/coverImage1741289029849.jpg', 0, 1, 'ไม่มีอาจารย์ที่ปรึกษา'),
+(13, 'การนำเสนอโครงงาน ของสาขาคอมพิวเตอร์', '<h1>นำเสนอโครงงานของนักศึกษาสาขาวิศวกรรมคอมพิวเตอร์ชั้นปีที่&nbsp;3&nbsp;และ&nbsp;1&nbsp;</h1><p></p><p><a href=\"https://photos.app.goo.gl/AvuzQpZgqmH6yMjf7\" rel=\"noopener noreferrer\" target=\"_blank\">https://photos.app.goo.gl/AvuzQpZgqmH6yMjf7</a></p>', '2024-10-08', 'อาคาร E', '/cover/coverImage1741289104994.jpg', 0, 1, 'อ.ว่าที่ ร.ต.ศิลา  ศิริมาสกุล'),
+(14, 'อบรมเครือข่ายคอมพิวเตอร์', '<h1 class=\"ql-align-center\">อบรมเครือข่ายคอมพิวเตอร์&nbsp;และการวางระบบสำหรับ&nbsp;Server&nbsp;</h1><p></p><p><a href=\"https://photos.app.goo.gl/BwuF7EJSWkNCc94J9\" rel=\"noopener noreferrer\" target=\"_blank\">https://photos.app.goo.gl/BwuF7EJSWkNCc94J9</a></p>', '2024-11-20', 'อาคาร B', '/cover/coverImage1741289183836.jpg', 0, 1, 'อ.อรรถศาสตร์ นาคเทวัญ'),
+(15, 'อบรมชินนสาสมาธิของนักศึกษาชั้นปีที่ 4', '<h2>อบรมชินนสาสมาธิของนักศึกษาชั้นปีที่&nbsp;4&nbsp;สาขาวิศวกรรมคอมพิวเตอร์&nbsp;โดยสถาบันพลังจิตตานุภาพ&nbsp;คณะอนุกรรมการหลักสูตรสมาธิในอุดมศึกษา&nbsp;</h2><p><a href=\"https://photos.app.goo.gl/XWS1pKmXXybj17tW9\" rel=\"noopener noreferrer\" target=\"_blank\">https://photos.app.goo.gl/XWS1pKmXXybj17tW9</a></p>', '2024-11-30', 'อาคาร E', '/cover/coverImage1741289292467.jpg', 0, 1, 'อ.ดร.รัตติกร  สมบัติแก้ว'),
+(16, 'Open house ลาดกระบังชุมพร', '<p>เตรียมตัวให้พร้อมแล้วพบกับ&nbsp;Open&nbsp;House&nbsp;สจล.วิทยาเขตชุมพรเขตรอุดมศักดิ์&nbsp;จังหวัดชุมพรเปิดบ้าน&nbsp;ลาดกระบังชุมพร&nbsp;เปิดหมด&nbsp;ไม่มีกั๊ก&nbsp;เปิดกันแบบหมดเปลือก&nbsp;ให้น้องได้ดูสาขาที่ใช่&nbsp;เลือกหลักสูตรที่ชอบในวันที่&nbsp;12&nbsp;กุมภาพันธ์&nbsp;2567&nbsp;ณ&nbsp;ดินแดนลาดกระบังชุมพร&nbsp;ไม่ว่าจะรุ่นเล็ก&nbsp;รุ่นใหญ่&nbsp;รุ่นไหนเราก็พร้อมรับ&nbsp;ไม่ว่าจะเป็นสายวิทย์&nbsp;สายศิลป์&nbsp;สายเทคนิค&nbsp;พาณิชย์&nbsp;มากันได้เลย&nbsp;เราเปิดบ้านรอแล้ว&nbsp;</p><p><a href=\"https://photos.app.goo.gl/cYLVYzRwp6k3ZaDz6\" rel=\"noopener noreferrer\" target=\"_blank\">https://photos.app.goo.gl/cYLVYzRwp6k3ZaDz6</a></p>', '2024-12-13', 'อาคาร E', '/cover/coverImage1741289363830.jpg', 1, 1, 'ไม่มีอาจารย์ที่ปรึกษา'),
+(17, 'การนำเสนอโครงงานสหกิจศึกษา ของพี่ ๆ ชั้นปีที่ 4', '<h2>หลักสูตรวิศวกรรมคอมพิวเตอร์ได้จัดให้มีกิจกรรม&nbsp;<strong>การนำเสนอโครงงานสหกิจศึกษา</strong>&nbsp;ของพี่&nbsp;ๆ&nbsp;ชั้นปีที่&nbsp;4&nbsp;หลังจากไปทำสหกิจศึกษา&nbsp;ณ&nbsp;สถานประกอบการ&nbsp;ตลอดภาคการศึกษาที่&nbsp;1/2567&nbsp;บรรยากาศการนำเสนอเป็นไปแบบเข้มข้นปนเสียงฮา&nbsp;น้อง&nbsp;ๆ&nbsp;ได้รับการถ่ายทอดประสบการณ์เหมือนกับได้ไปฝึกงานเอง&nbsp;สร้างแรงจูงใจให้น้อง&nbsp;ๆ&nbsp;ในการออกไปฝึกงานกันอย่างถ้วนหน้า</h2>', '2024-12-18', 'อาคาร E', '/cover/coverImage1741289441980.jpg', 1, 1, 'อ.ดร.รัตติกร  สมบัติแก้ว'),
+(18, 'แลกเปลี่ยนประสบการณ์ฝึกงานและสหกิจศึกษา โดยพี่ ๆ ชั้นปีที่ 4', '<p>หลักสูตรวิศวกรรมคอมพิวเตอร์ได้จัดกิจกรรม&nbsp;“แลกเปลี่ยนประสบการณ์ฝึกงานและสหกิจศึกษา”&nbsp;โดยพี่&nbsp;ๆ&nbsp;ชั้นปีที่&nbsp;4&nbsp;ได้ร่วมแบ่งปันประสบการณ์หลังจากการฝึกงานและสหกิจศึกษาในสถานประกอบการต่าง&nbsp;ๆ&nbsp;ซึ่งได้บรรยายถึงสิ่งที่เรียนรู้&nbsp;รวมถึงแนวทางในการเตรียมตัวสำหรับการฝึกงานและสหกิจศึกษา&nbsp;เพื่อให้น้อง&nbsp;ๆ&nbsp;มีความพร้อมและมั่นใจยิ่งขึ้น&nbsp;กิจกรรมยังมีช่วงถามตอบกับรุ่นพี่&nbsp;พร้อมของรางวัลสร้างบรรยากาศที่สนุกสนานและผ่อนคลาย&nbsp;</p><p></p><p><a href=\"https://photos.app.goo.gl/NoC92Nvtu91DDrbH6\" rel=\"noopener noreferrer\" target=\"_blank\">https://photos.app.goo.gl/NoC92Nvtu91DDrbH6</a></p>', '2025-01-12', 'กรุงเทพ', '/cover/coverImage1741289521849.jpg', 1, 1, 'อ.ดร.รัตติกร  สมบัติแก้ว'),
+(19, 'ฉลามบุกสาขา!', '<h2>เรื่องมันมีอยู่ว่า…&nbsp;ในขณะที่พนักงานกำลังนั่งจิบกาแฟ&nbsp;กดมือถืออย่างสบายใจ&nbsp;จู่ๆ&nbsp;ก็มีเสียงกรี๊ดลั่นร้าน!&nbsp;ไม่ใช่เพราะโปร&nbsp;1&nbsp;แถม&nbsp;1&nbsp;แต่เป็นเพราะมี&nbsp;<strong>ฉลามบุก!</strong></h2><p></p><h2>ใช่แล้ว!&nbsp;ฉลามตัวเป็นๆ&nbsp;(หรือเปล่าไม่รู้)&nbsp;โผล่มากลางสาขา!&nbsp;พนักงานแตกกระเจิง&nbsp;ลูกค้ากระโดดขึ้นโต๊ะ&nbsp;ผู้จัดการตะโกนว่า&nbsp;“ใครสั่งเมนูปลาดิบ!?”</h2><h2></h2><h2>สุดท้ายแล้วมันเป็นแค่…&nbsp;ทีมงานแผนกมาร์เก็ตติ้งที่ใส่ชุดฉลามมาโปรโมทสินค้าใหม่&nbsp;แต่ก็ดูเหมือนจะได้ผล&nbsp;เพราะตอนนี้ทุกคนในร้านไม่มีใครลืมแคมเปญนี้แน่นอน!</h2>', '2025-03-06', 'สาขาวิศวกรรมคอมพิวเตอร์', '/cover/coverImage1741289910715.jpg', 0, 2, 'ไม่มีอาจารย์ที่ปรึกษา'),
+(20, 'ช็อค!! นักศึกษาวิศวกรรมคอมพิวเตอร์ปั่นงาน Team Project แทบไม่ทัน', '<h1 class=\"ql-align-center\"><strong>U&nbsp;II&nbsp;AI&nbsp;OU&nbsp;II&nbsp;A&nbsp;</strong></h1>', '2025-03-07', 'หน้าคอม', '/cover/coverImage1741290730624.gif', 0, 2, 'อ.อรรถศาสตร์ นาคเถวัญ');
 
 -- --------------------------------------------------------
 
@@ -82,10 +84,65 @@ CREATE TABLE `Activity_Images` (
 --
 
 INSERT INTO `Activity_Images` (`Image_ID`, `ACT_ID`, `Image_Path`) VALUES
-(1, 1, 'uploads/activity1_pic1.jpg'),
-(2, 1, 'uploads/activity1_pic2.jpg'),
-(3, 2, 'uploads/activity2_pic1.jpg'),
-(4, 3, 'uploads/activity3_pic1.jpg');
+(1, 1, '/additionalImage/additionalImage1741287599234_0.png'),
+(2, 1, '/additionalImage/additionalImage1741287599237_1.jpg'),
+(3, 1, '/additionalImage/additionalImage1741287599239_2.jpg'),
+(4, 2, '/additionalImage/additionalImage1741287706796_0.jpg'),
+(5, 2, '/additionalImage/additionalImage1741287706799_1.jpg'),
+(6, 2, '/additionalImage/additionalImage1741287706803_2.jpg'),
+(7, 3, '/additionalImage/additionalImage1741287812086_0.jpg'),
+(8, 3, '/additionalImage/additionalImage1741287812089_1.jpg'),
+(9, 3, '/additionalImage/additionalImage1741287812092_2.jpg'),
+(10, 4, '/additionalImage/additionalImage1741287946517_0.jpg'),
+(11, 4, '/additionalImage/additionalImage1741287946521_1.jpg'),
+(12, 4, '/additionalImage/additionalImage1741287946525_2.jpg'),
+(13, 5, '/additionalImage/additionalImage1741288026009_0.jpg'),
+(14, 5, '/additionalImage/additionalImage1741288026012_1.jpg'),
+(15, 5, '/additionalImage/additionalImage1741288026015_2.jpg'),
+(16, 6, '/additionalImage/additionalImage1741288100485_0.jpg'),
+(17, 6, '/additionalImage/additionalImage1741288100488_1.jpg'),
+(18, 6, '/additionalImage/additionalImage1741288100490_2.jpg'),
+(19, 7, '/additionalImage/additionalImage1741288184868_0.jpg'),
+(20, 7, '/additionalImage/additionalImage1741288184871_1.jpg'),
+(21, 7, '/additionalImage/additionalImage1741288184874_2.jpg'),
+(22, 8, '/additionalImage/additionalImage1741288432400_0.jpg'),
+(23, 8, '/additionalImage/additionalImage1741288432403_1.jpg'),
+(24, 8, '/additionalImage/additionalImage1741288432405_2.jpg'),
+(25, 9, '/additionalImage/additionalImage1741288675056_0.jpg'),
+(26, 9, '/additionalImage/additionalImage1741288675059_1.jpg'),
+(27, 9, '/additionalImage/additionalImage1741288675061_2.jpg'),
+(28, 10, '/additionalImage/additionalImage1741288804203_0.jpg'),
+(29, 10, '/additionalImage/additionalImage1741288804206_1.jpg'),
+(30, 10, '/additionalImage/additionalImage1741288804208_2.jpg'),
+(31, 11, '/additionalImage/additionalImage1741288932733_0.jpg'),
+(32, 11, '/additionalImage/additionalImage1741288932736_1.jpg'),
+(33, 11, '/additionalImage/additionalImage1741288932738_2.jpg'),
+(34, 12, '/additionalImage/additionalImage1741289029851_0.jpg'),
+(35, 12, '/additionalImage/additionalImage1741289029854_1.jpg'),
+(36, 12, '/additionalImage/additionalImage1741289029856_2.jpg'),
+(37, 13, '/additionalImage/additionalImage1741289104997_0.jpg'),
+(38, 13, '/additionalImage/additionalImage1741289105000_1.jpg'),
+(39, 13, '/additionalImage/additionalImage1741289105002_2.jpg'),
+(40, 14, '/additionalImage/additionalImage1741289183839_0.jpg'),
+(41, 14, '/additionalImage/additionalImage1741289183842_1.jpg'),
+(42, 14, '/additionalImage/additionalImage1741289183845_2.jpg'),
+(43, 15, '/additionalImage/additionalImage1741289292471_0.jpg'),
+(44, 15, '/additionalImage/additionalImage1741289292474_1.jpg'),
+(45, 15, '/additionalImage/additionalImage1741289292477_2.jpg'),
+(46, 16, '/additionalImage/additionalImage1741289363834_0.jpg'),
+(47, 16, '/additionalImage/additionalImage1741289363837_1.jpg'),
+(48, 16, '/additionalImage/additionalImage1741289363839_2.jpg'),
+(49, 17, '/additionalImage/additionalImage1741289441984_0.jpg'),
+(50, 17, '/additionalImage/additionalImage1741289441987_1.jpg'),
+(51, 17, '/additionalImage/additionalImage1741289441990_2.jpg'),
+(52, 18, '/additionalImage/additionalImage1741289521853_0.jpg'),
+(53, 18, '/additionalImage/additionalImage1741289521856_1.jpg'),
+(54, 18, '/additionalImage/additionalImage1741289521859_2.jpg'),
+(55, 19, '/additionalImage/additionalImage1741289910719_0.jpg'),
+(56, 19, '/additionalImage/additionalImage1741289910723_1.jpg'),
+(57, 20, '/additionalImage/additionalImage1741290730628_0.gif');
+
+
 
 -- --------------------------------------------------------
 
@@ -370,8 +427,8 @@ INSERT INTO `USERS` (`Username`, `Email`, `Pass`) VALUES
 ('athasart','athasart.na@kmitl.ac.th','$2a$12$q1aUJSIaEiUvUUhlvYhQSukM0w2OblU/Bzrnc2A0.FvSNmFjRROhq'),
 ('rattikorn','rattikorn.so@kmitl.ac.th','$2a$12$hrqanwHbMrmHBbGdHfcNAumNWPp16Vj9d7MpBVmNXdKK3pepX7DNa');
 INSERT INTO `USERS` (`Username`, `Email`, `Pass`, `Role_Admin`) VALUES
-('Admin', 'admin@gmail.com', '$2a$12$nRpeYbQ37wbhdv.Ob9Eo5u3whxBp2oHfv7V7zKv03gUVLH4QhMaiq', 1),
-('user1', 'user1@gmail.com', '$2a$12$nRpeYbQ37wbhdv.Ob9Eo5u3whxBp2oHfv7V7zKv03gUVLH4QhMaiq', 0);
+('Admin', 'admin@gmail.com', '$2a$12$Xl37sP38DRC1NsqtZU6JaOzN.j.IIxX3yDX.eeAmsb2VJebvTvlcG', 1),
+('user1', 'user1@gmail.com', '$2a$12$Xl37sP38DRC1NsqtZU6JaOzN.j.IIxX3yDX.eeAmsb2VJebvTvlcG', 0);
 
 
 --
