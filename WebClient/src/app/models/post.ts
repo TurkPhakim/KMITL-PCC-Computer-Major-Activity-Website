@@ -11,4 +11,5 @@ export interface Post {
   externalLink?: string;  // External Link
   images?: string[];      // Array Picture
   isPinned?: boolean;     // Pin/Unpin
+  additionalImages?: string[]; // Additional Images
 }
