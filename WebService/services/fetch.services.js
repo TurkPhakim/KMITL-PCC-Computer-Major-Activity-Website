@@ -1,21 +1,23 @@
 const connection = require("./dbconn");
 
-const extractExternalLink = (description) => {
-  const urlRegex = /(https?:\/\/[^\s]+)/g;
-  const match = description.match(urlRegex);
+function extractExternalLink(description) {
+  const linkRegex = /<a\s+[^>]*href=["']([^"']+)["'][^>]*>(.*?)<\/a>/i;
+  const match = description.match(linkRegex);
+  let externalLink = null;
+  let updatedDescription = description;
   if (match) {
-    const externalLink = match[0];
-    const updatedDescription = description.replace(externalLink, "").trim();
-    return { externalLink, updatedDescription };
+      externalLink = match[1]; // Extract the first hyperlink (href)
+      updatedDescription = description.replace(match[0], "").trim(); // Remove only the first <a> tag
   }
-  return { externalLink: null, updatedDescription: description };
-};
+  return { externalLink, updatedDescription };
+}
+
 
 const formatDate = (dateString) => {
   const date = new Date(dateString);
   const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, '0');
-  const day = String(date.getDate()).padStart(2, '0');
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
   return `${day}-${month}-${year}`;
 };
 
@@ -42,8 +44,10 @@ const FetchService = {
       const [results] = await connection.execute(sql);
 
       const data = results.reduce((acc, result) => {
-        const { externalLink, updatedDescription } = extractExternalLink(result.description);
-        const existingEntry = acc.find(item => item.id === result.id);
+        const { externalLink, updatedDescription } = extractExternalLink(
+          result.description
+        );
+        const existingEntry = acc.find((item) => item.id === result.id);
         if (existingEntry) {
           existingEntry.images.push(result.imagePath);
         } else {
@@ -87,7 +91,9 @@ const FetchService = {
       const [results] = await connection.execute(sql, [id]);
 
       if (results.length) {
-        const { externalLink, updatedDescription } = extractExternalLink(results[0].description);
+        const { externalLink, updatedDescription } = extractExternalLink(
+          results[0].description
+        );
         const data = results.reduce((acc, result) => {
           if (!acc) {
             const { imagePath, ...rest } = result; // Exclude imagePath from the result object
@@ -114,10 +120,10 @@ const FetchService = {
 
   pinDataById: async (id) => {
     try {
-      console.log(`Updating Pin for ID: ${id}`);  // 🛑 Debug: Log before SQL execution
+      console.log(`Updating Pin for ID: ${id}`); // 🛑 Debug: Log before SQL execution
       const sql = `UPDATE Activity SET Pin = CASE WHEN Pin = 1 THEN 0 ELSE 1 END WHERE ACT_ID = ?`;
       const [result] = await connection.execute(sql, [id]);
-      console.log(`Update Result:`, result);  // 🛑 Debug: Log SQL result
+      console.log(`Update Result:`, result); // 🛑 Debug: Log SQL result
       return result;
     } catch (err) {
       console.error("Database Error:", err);
@@ -134,7 +140,7 @@ const FetchService = {
       console.error("Database Error:", err);
       throw err;
     }
-  }
+  },
 };
 
 module.exports = FetchService;
